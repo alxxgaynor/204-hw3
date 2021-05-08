@@ -81,8 +81,8 @@ plot_2 <- plot_1 +
 
 ```
 
-Low income demand function: `P = `r b_low`Q + `r a_low``
-High income demand function: `P = `r b_high`Q + `r a_high``
+### Low income demand function: `P = `r b_low`Q + `r a_low``
+### High income demand function: `P = `r b_high`Q + `r a_high``
 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE}
@@ -152,7 +152,7 @@ t = (51/2204.62)*19.6
 ```
 # 1 Marginal Externality Cost of Gasoline
 
-The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by `$51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas`
+### The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by `$51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas`
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 ## Social benefit
@@ -164,12 +164,30 @@ social_tot <- social_low + social_high
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 ## Producer benefit
 producer <- (3)*(demand_alt(3))/2
+
+## Cost for environment
+env_cost <- t*(demand_alt(3))
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 ## Plot in agg demand and supply
-plot_2 + xlim(0, 800000) +
+plot_e <- plot_2 + xlim(0, 800000) +
   ylim(0,16) +
   geom_abline(intercept=a_tot, slope=b_tot, color = "green") +
   geom_abline(intercept=0, slope=s_slope, color = "blue")
 ```
+
+# 2 Curves
+### What is the aggregate daily demand curve for gasoline?
+### From $0 to `r round(a_low,2)`: P = `r round(b_tot,7)`Q + `r round(a_tot,1)`, From `r round(a_low,1)` to infity:  P = `r round(b_high,7)`Q + `r round(a_high,1)`  
+### What is the supply curve for gasoline?
+### P = `r round(s_slope,8)`Q + 0
+### What is the “benefit” to consumers under the status quo?
+### `r round(social_tot,1)`
+### What is the “benefit” to producers under the status quo?
+### `r round(producer,1)`
+### What is the environmental cost under the status quo?
+### `r round(env_cost,1)`
+
+
+
