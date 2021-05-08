@@ -42,9 +42,10 @@ gas_demand <- gas_demand_data %>%
   rename("price" ="price_dollars", "q_low" = "q_low_gallons", "q_high" = "q_high_gallons")
 ```
 
-## Plot data
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE}
+## Plot data
 plot_1 <- ggplot(data=gas_demand, aes(y=price))+
   geom_point(aes(x=q_low))+
   geom_point(aes(x=q_high))+
@@ -74,7 +75,7 @@ price_fitted_low <- a_low + b_low*gas_demand$q_low
 
 price_fitted_high <- a_high + b_high*gas_demand$q_high
 
-plot_1 +
+plot_2 <- plot_1 +
   geom_line(aes(y=price_fitted_low, x=q_low)) +
   geom_line(aes(y=price_fitted_high, x=q_high))
 
@@ -83,21 +84,8 @@ plot_1 +
 Low income demand function: `P = `r b_low`Q + `r a_low``
 High income demand function: `P = `r b_high`Q + `r a_high``
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Functions - the reason to use functions is to avoid repeated operations 
-add_these_numbers <- function(input_1, input_2){
-  
-  output <- input_1 + input_2 
-  
-  return(output)
-}
 
-add_these_numbers(1,2)
-add_these_numbers(1,2) + 4
-x <- add_these_numbers(1,2) +4 ; x
-```
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE}
 ## Inverse demand
 
 inverse_demand <- function(q, model){
@@ -131,7 +119,7 @@ b_high_invert <- 1/model_demand_high$coefficients[[2]]
 
 ```
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE}
 ## Determine aggregate
 
 a_tot_invert <- a_low_invert + a_high_invert
@@ -162,6 +150,9 @@ s_slope <- 3/demand_alt(3)
 t = (51/2204.62)*19.6
 
 ```
+# 1 Marginal Externality Cost of Gasoline
+
+The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by `$51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas`
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 ## Social benefit
@@ -170,4 +161,12 @@ social_high = (a_high-3)*(demand(3,model_demand_high))/2
 social_tot <- social_low + social_high
 ```
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Producer benefit
+producer <- (3)*(demand_alt(3))/2
+```
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Plot in agg demand and supply
+ggplot
+```
