@@ -130,3 +130,28 @@ b_low_invert <- 1/model_demand_low$coefficients[[2]]
 b_high_invert <- 1/model_demand_high$coefficients[[2]]
 
 ```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Determine aggregate
+
+a_tot_invert <- a_low_invert + a_high_invert
+b_tot_invert <- b_low_invert + b_high_invert
+
+a_tot <- -a_tot_invert/b_tot_invert
+b_tot <- 1/b_tot_invert
+
+demand_alt <- function(p){
+  q <- (p - a_tot)/b_tot
+  return(q)
+}
+demand_alt(0)
+```
+
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Determine marginal cost curve
+
+s_slope <- 3/demand_alt(3)
+
+```
