@@ -1,6 +1,6 @@
 ---
 title: "HW3"
-author: "Alex Gaynor" 
+author: "Alex Gaynor and Carlos Simms" 
 Created: "5/8/2021"
 Updated: "5/8/2021"
 ---
@@ -28,6 +28,8 @@ lapply(1:length(packages), function(x)
 # set the directory where the script is saved to avoid complicated directory paths
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) 
 getwd()
+
+library(tidyverse)
 ```
 
 
