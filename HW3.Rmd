@@ -118,10 +118,15 @@ inverse_demand(demand(0,model_demand_low),model_demand_low)
 demand(3,model_demand_high)
 inverse_demand(176746.5,model_demand_low)
 inverse_demand(demand(0,model_demand_low),model_demand_low)
-# 
-# demand(50,model_demand)
-# inverse_demand(83.31603,model_demand)
-# 
-# demand(a,model_demand)
-# inverse_demand(0,model_demand)
+
+a_low_invert <- demand(0,model_demand_low)
+a_high_invert <- demand(0,model_demand_high)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Determine the inverse slope
+
+b_low_invert <- 1/model_demand_low$coefficients[[2]]
+b_high_invert <- 1/model_demand_high$coefficients[[2]]
+
 ```
