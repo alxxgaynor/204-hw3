@@ -110,11 +110,14 @@ demand <- function(p, model){
   return(q)
 }
 
-inverse_demand(0,model_demand_high)
 
-# demand(0,model_demand)
-# inverse_demand_low(111.4418,model_demand_low)
-# inverse_demand(demand(0,model_demand),model_demand)
+demand(0,model_demand_low)
+inverse_demand(176746.5,model_demand_low)
+inverse_demand(demand(0,model_demand_low),model_demand_low)
+
+demand(3,model_demand_high)
+inverse_demand(176746.5,model_demand_low)
+inverse_demand(demand(0,model_demand_low),model_demand_low)
 # 
 # demand(50,model_demand)
 # inverse_demand(83.31603,model_demand)
