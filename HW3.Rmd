@@ -1,0 +1,101 @@
+---
+title: "HW3"
+author: "Alex Gaynor" 
+Created: "5/8/2021"
+Updated: "5/8/2021"
+---
+
+```{r setup, include=FALSE}
+## Setup 
+
+rm(list=ls())
+options(scipen=999) #give me normal numbers, not scientific ones
+gc() #cleans ram
+
+## Packages
+
+packages=c("dplyr","tidyr", "stringr",  
+           "ggplot2", "stargazer", "cowplot", "janitor" ) 
+
+#fancy way to load packages, if its installed, run it, otherwise install it.
+lapply(1:length(packages), function(x) 
+  ifelse((require(packages[x],character.only=TRUE)==FALSE),
+         install.packages(packages[x]),
+         require(packages[x],character.only=TRUE)))
+         
+## Set directory
+
+# set the directory where the script is saved to avoid complicated directory paths
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) 
+getwd()
+```
+
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Load data
+# useful if letters are in the data to not let R do funny stuff
+gas_demand_data <- read.csv("HW3_data.csv", stringsAsFactors = F)
+
+gas_demand <- gas_demand_data %>% 
+  clean_names %>% 
+  rename("price" ="price_dollars", "q_low" = "q_low_gallons", "q_high" = "q_high_gallons")
+```
+
+## Plot data
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+plot_1 <- ggplot(data=gas_demand, aes(y=price))+
+  geom_point(aes(x=q_low))+
+  geom_point(aes(x=q_high))+
+  theme_cowplot(16); plot_1
+```
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Estimate linear model (model has an implied intercept)
+
+model_demand_low <- lm(price ~ q_low, data=gas_demand)
+
+a_low <- model_demand_low$coefficients[[1]]
+b_low <- model_demand_low$coefficients[[2]]
+
+model_demand_high <- lm(price ~ q_high, data=gas_demand)
+
+a_high <- model_demand_high$coefficients[[1]]
+b_high <- model_demand_high$coefficients[[2]]
+```
+
+## Add estimated curve to our plot
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+price_fitted_low <- a_low + b_low*gas_demand$q_low
+
+
+price_fitted_high <- a_high + b_high*gas_demand$q_high
+
+plot_1 +
+  geom_line(aes(y=price_fitted_low, x=q_low)) +
+  geom_line(aes(y=price_fitted_high, x=q_high))
+
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+
+```
+Low income demand function: `P = `r b_low`Q + `r a_low``
+High income demand function: `P = `r b_high`Q + `r a_high``
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Functions - the reason to use functions is to avoid repeated operations 
+add_these_numbers <- function(input_1, input_2){
+  
+  output <- input_1 + input_2 
+  
+  return(output)
+}
+
+add_these_numbers(1,2)
+add_these_numbers(1,2) + 4
+x <- add_these_numbers(1,2) +4 ; x
+```
