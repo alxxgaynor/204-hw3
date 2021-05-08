@@ -163,5 +163,11 @@ t = (51/2204.62)*19.6
 
 ```
 
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Social benefit
+social_low = (a_low-3)*(demand(3,model_demand_low))/2
+social_high = (a_high-3)*(demand(3,model_demand_high))/2
+social_tot <- social_low + social_high
+```
 
 
