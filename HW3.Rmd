@@ -1,6 +1,6 @@
 ---
 title: "HW3"
-author: "Alex Gaynor and Carlos Simms" 
+author: "Alex Gaynor" 
 Created: "5/8/2021"
 Updated: "5/8/2021"
 ---
@@ -28,8 +28,6 @@ lapply(1:length(packages), function(x)
 # set the directory where the script is saved to avoid complicated directory paths
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) 
 getwd()
-
-library(tidyverse)
 ```
 
 
@@ -82,9 +80,6 @@ plot_1 +
 
 ```
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
-
-```
 Low income demand function: `P = `r b_low`Q + `r a_low``
 High income demand function: `P = `r b_high`Q + `r a_high``
 
@@ -115,8 +110,10 @@ demand <- function(p, model){
   return(q)
 }
 
+inverse_demand(0,model_demand_high)
+
 # demand(0,model_demand)
-# inverse_demand(111.4418,model_demand)
+# inverse_demand_low(111.4418,model_demand_low)
 # inverse_demand(demand(0,model_demand),model_demand)
 # 
 # demand(50,model_demand)
@@ -124,3 +121,4 @@ demand <- function(p, model){
 # 
 # demand(a,model_demand)
 # inverse_demand(0,model_demand)
+```
