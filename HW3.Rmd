@@ -168,5 +168,8 @@ producer <- (3)*(demand_alt(3))/2
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 ## Plot in agg demand and supply
-ggplot
+plot_2 + xlim(0, 800000) +
+  ylim(0,16) +
+  geom_abline(intercept=a_tot, slope=b_tot, color = "green") +
+  geom_abline(intercept=0, slope=s_slope, color = "blue")
 ```
