@@ -337,30 +337,6 @@ redist_l <- function (x){
   return(w)
   }
 
-# Mutating a table via tibble:
-benefit_table <- tibble(x = c(0,
-                              51,
-                            75,
-                            100,
-                            125,
-                            150),
-                      y <- (x/2204.62)*19.6,
-                      q <- ((a_high-(3+y))*(demand((3+y),
-                                                   model_demand_high))/2),
-                      z <- ((a_low-(3+y))*(demand((3+y),
-                                                  model_demand_low))/2),
-                      v <- q + demand_alt(3+y)*y*pretax_perc_high,
-                      w <- z+demand_alt(3+y)*y*(1/pretax_perc_high),
-                      p <- producer_surplus(x)) %>% 
-  round(digits = 2) %>% 
-  rename("SCC ($/MTCO2eq.)" = "x") %>% 
-  rename("Tax Rate ($)" = "y <- (x/2204.62) * 19.6") %>% 
-  rename("Pre Distribution High ($)" = "q <- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)") %>% 
-  rename("Pre Distribution Low ($)" = "z <- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)") %>% 
-  rename("Post Distribution High ($)" = "v <- q + demand_alt(3 + y) * y * pretax_perc_high") %>% 
-  rename("Post Distribution Low ($)" = "w <- z + demand_alt(3 + y) * y * (1/pretax_perc_high)") %>% 
-  rename("Producer Surplus ($)" = "p <- producer_surplus(x)")
-
 benefit_table <- tibble(x = c(51,
                               75,
                               100,
@@ -458,7 +434,7 @@ social_tot <- social_low + social_high
 ```
 
 ### a) What is total gas consumption?
-`e_gas_tot`
+`r e_gas_tot`
 
 ### b) What is the total environmental externality?
 **insert**
