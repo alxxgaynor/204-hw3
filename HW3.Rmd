@@ -337,7 +337,8 @@ redist_l <- function (x){
   return(w)
   }
 
-benefit_table <- tibble(x = c(51,
+benefit_table <- tibble(x = c(0,
+                              51,
                               75,
                               100,
                               125,
@@ -417,27 +418,35 @@ demand_electric <- function(p,
   return(q)
 }
 
-inverse_demand_electric(3,model_demand_high)
+# inverse_demand_electric(3,model_demand_high)
 demand_electric(3,model_demand_high)
-demand(3,model_demand_low)
+# demand(3,model_demand_low)
 
-e_gas_tot <- demand_electric(3,model_demand_high) +
-  demand(3,model_demand_low)
+
 # Social benefit - electric:
 
 social_low = (a_low-3)*(demand(3,model_demand_low))/2
 
 social_high_e = ((a_high/2)-3)*(demand_electric(3,model_demand_high))/2
 
-social_tot <- social_low + social_high
+e_gas_tot <- demand_electric(3,model_demand_high) +
+  demand(3,model_demand_low)
 
+e_tax_revenue <- t*e_gas_tot
+
+e_car_gal_reduction <- demand_alt(3) - e_gas_tot
+
+#  difference between status quo gallons and the new normal after electric cars entering the scene:
+e_car_env_value <- t*e_car_gal_reduction
+
+equal_gas_tax <- e_car_env_value/(e_gas_tot)
 ```
 
 ### a) What is total gas consumption?
-`r e_gas_tot`
+**`r round(e_gas_tot,0)`**
 
 ### b) What is the total environmental externality?
-**insert**
+**At a SCC of $51, the tax rate is $0.45, multiplied by the total gas consumption = `r round(e_tax_revenue,0)`**
 
 ### c) What value of the gasoline tax makes the total environmental damage the same as the electric car technology?
-**insert**
+**"the same as the electric car technology" ?must? mean (environmental value per gallon saved: $0.45 if the SCC is $51)x(gallons saved by some rich people switching to electric) = `r round(e_car_env_value,0)`. In order to generate the same amount via a tax on the remaining gallons of gas consumed, you would divide the amount by the miles still driven and get `r round(equal_gas_tax,2)`**
