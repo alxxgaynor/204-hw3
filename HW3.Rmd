@@ -397,4 +397,41 @@ kbl(benefit_table) %>%
 #   xlab("Common Name") +
 #   ylab("Size") +
 #   theme(legend.position = "none")
+
+model_demand_low <- lm(price ~ q_low, 
+                       data=gas_demand)
+
+a_low <- model_demand_low$coefficients[[1]]
+
+b_low <- model_demand_low$coefficients[[2]]
+
+model_demand_high <- lm(price ~ q_high, 
+                        data=gas_demand)
+
+a_high <- model_demand_high$coefficients[[1]]
+
+b_high <- model_demand_high$coefficients[[2]]
+
+price_fitted_low <- a_low + b_low*gas_demand$q_low
+
+price_fitted_high <- a_high + b_high*gas_demand$q_high
+
+plot_2 <- plot_1 +
+  geom_line(aes(y=price_fitted_low, 
+                x=q_low)) +
+  geom_line(aes(y=price_fitted_high, 
+                x=q_high))
+
+# Low income demand function: `P = `r b_low`Q + `r a_low``
+
+# High income demand function: `P = `r b_high`Q + `r a_high``
+
+# Inverse demand:
+
+inverse_demand_electric <- function(q, 
+                           model){
+  p <- model$coefficients[[1]]/2 + model$coefficients[[2]]*q
+  return(p)
+}
+inverse_demand_electric(3,)
 ```

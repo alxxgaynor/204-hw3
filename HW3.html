@@ -806,7 +806,7 @@ s_slope &lt;- 3/demand_alt(3)
 t = (51/2204.62)*19.6</code></pre>
 <div id="marginal-externality-cost-of-gasoline" class="section level1">
 <h1>1) Marginal Externality Cost of Gasoline</h1>
-<p>The marginal externality cost per gallon of gasoline is <code>$</code>0.45 and found by <code>$51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas</code>.</p>
+<p><em>The marginal externality cost per gallon of gasoline is <code>$</code>0.45 and found by $51 per metric ton/2204.62 lbs per metric ton x 19.6 lbs per gallon gas.</em></p>
 <pre class="r"><code># Social benefit:
 
 social_low = (a_low-3)*(demand(3,model_demand_low))/2
@@ -841,41 +841,41 @@ plot_e &lt;- plot_2 + xlim(0,
 <h1>2) Curves</h1>
 <div id="what-is-the-aggregate-daily-demand-curve-for-gasoline" class="section level3">
 <h3>What is the aggregate daily demand curve for gasoline?</h3>
-<p>From $0 to 11.69: P = -0.0000193Q + 14.6, from 11.69 to infity: P = -0.0000273Q + 15.8</p>
+<p><em>From $0 to 11.69: P = -0.0000193Q + 14.6, from 11.69 to infity: P = -0.0000273Q + 15.8</em></p>
 </div>
 <div id="what-is-the-supply-curve-for-gasoline" class="section level3">
 <h3>What is the supply curve for gasoline?</h3>
-<p>P = 0.000005Q + 0</p>
+<p><em>P = 0.000005Q + 0</em></p>
 </div>
 <div id="what-is-the-benefit-to-consumers-under-the-status-quo" class="section level3">
 <h3>What is the “benefit” to consumers under the status quo?</h3>
-<p>3571830.1</p>
+<p><em>3571830.1</em></p>
 </div>
 <div id="what-is-the-benefit-to-producers-under-the-status-quo" class="section level3">
 <h3>What is the “benefit” to producers under the status quo?</h3>
-<p>900302.3</p>
+<p><em>900302.3</em></p>
 </div>
 <div id="what-is-the-environmental-cost-under-the-status-quo" class="section level3">
 <h3>What is the environmental cost under the status quo?</h3>
-<p>272138.3</p>
+<p><em>272138.3</em></p>
 </div>
 </div>
 <div id="consumer-benefit" class="section level1">
 <h1>3) Consumer Benefit</h1>
 <div id="how-is-the-current-consumer-benefit-divided-between-high-and-low-income-consumers" class="section level3">
 <h3>How is the current consumer benefit divided between “high” and “low” income consumers?</h3>
-<p>“High” income consumers attain <code>$</code>3001322 of benefit and “low” income consumers attain <code>$</code>570509 of benefit for a total of <code>$</code>3571830. “High” income consumers receive 84 percent of the total benefit.</p>
+<p><em>“High” income consumers attain <code>$</code>3001322 of benefit and “low” income consumers attain <code>$</code>570509 of benefit for a total of <code>$</code>3571830. “High” income consumers receive 84 percent of the total benefit.</em></p>
 </div>
 </div>
 <div id="derive-the-optimal-gas-tax-0.45" class="section level1">
 <h1>4) Derive the Optimal Gas Tax: <code>$</code>0.45</h1>
 <div id="a-how-will-this-tax-affect-the-amount-of-gasoline-produced-and-consumed" class="section level3">
 <h3>a) How will this tax affect the amount of gasoline produced and consumed?</h3>
-<p>The amount of gasoline produced and consumed will move from 600202, down to 576917.</p>
+<p><em>The amount of gasoline produced and consumed will move from 600202, down to 576917.</em></p>
 </div>
 <div id="b-how-will-this-tax-affect-the-price-of-gasoline" class="section level3">
 <h3>b) How will this tax affect the price of gasoline?</h3>
-<p>The price of gas for consumers is $3.45 inclusive of the tax. Meanwhile, suppliers get paid $3 per gallon.</p>
+<p><em>The price of gas for consumers is $3.45 inclusive of the tax.</em> <em>Meanwhile, suppliers get paid $3 per gallon.</em></p>
 <pre class="r"><code># Social benefit:
 
 t_var &lt;- function(x){
@@ -931,23 +931,23 @@ net_producer &lt;- producer - producer_surplus(51)</code></pre>
 </div>
 <div id="c-how-will-this-tax-affect-the-overall-welfare-of-high-income-consumers" class="section level3">
 <h3>c) How will this tax affect the overall welfare of “high” income consumers?</h3>
-<p>Welfare for “high” income consumers will go from 3001322 down to 2792512, or a loss of 208809.</p>
+<p><em>Welfare for “high” income consumers will go from 3001322 down to 2792512, or a loss of 208809.</em></p>
 </div>
 <div id="d-how-will-this-tax-affect-the-overall-welfare-of-low-income-consumers" class="section level3">
 <h3>d) How will this tax affect the overall welfare of “low” income consumers?</h3>
-<p>Before the tax, total welfare for “low” income consumers 309008 was the total benefit 570509 for “low” income people - the environmental damage burden that fell on them 261501. Considering that no environemtnal damage occurs after the tax, the new total benefit for “low” income people is 512498, or a gain of 203491.</p>
+<p><em>Before the tax, total welfare for “low” income consumers 309008 was the total benefit 570509 for “low” income people - the environmental damage burden that fell on them 261501. Considering that no environemtnal damage occurs after the tax, the new total benefit for “low” income people is 512498, or a gain of 203491.</em></p>
 </div>
 <div id="e-how-will-this-tax-affect-gas-producers" class="section level3">
 <h3>e) How will this tax affect gas producers?</h3>
-<p>Supplier surplus for producers will go from 900302 down to 831295, or a loss of 69007.</p>
+<p><em>Supplier surplus for producers will go from 900302 down to 831295, or a loss of 69007.</em></p>
 </div>
 <div id="f-how-will-this-tax-affect-total-environmental-damage" class="section level3">
 <h3>f) How will this tax affect total environmental damage?</h3>
-<p>At this tax rate there is no environmental damage accounted for with a social cost of carbon of $51.</p>
+<p><em>At this tax rate there is no environmental damage accounted for with a social cost of carbon of $51.</em></p>
 </div>
 <div id="g-how-will-this-tax-affect-total-tax-revenue-generated" class="section level3">
 <h3>g) How will this tax affect total tax revenue generated?</h3>
-<p>Instead of $0 in tax, this will generate 261501.</p>
+<p><em>Instead of $0 in tax, this will generate 261501.</em></p>
 </div>
 </div>
 <div id="redistributing-gas-tax-revenue-to-consumers" class="section level1">
@@ -995,20 +995,13 @@ tibble_base &lt;- tibble(x = c(51,
 
 benefit_table &lt;- tibble_base %&gt;% 
   round(digits = 2) %&gt;% 
-  rename(&#39;SCC ($/MTCO2eq.)&#39; = 
-           &#39;x&#39;, 
-         &#39;Tax Rate ($)&#39; = 
-           &#39;y &lt;- (x/2204.62) * 19.6&#39;,
-         &#39;Pre Distribution High ($)&#39; = 
-           &#39;q &lt;- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)&#39;,
-         &#39;Pre Distribution Low ($)&#39; = 
-           &#39;z &lt;- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)&#39;,
-         &#39;Post Distribution High ($)&#39; = 
-           &#39;v &lt;- q + demand_alt(3 + y) * y * pretax_perc_high&#39;,
-         &#39;Post Distribution Low ($)&#39; = 
-           &#39;w &lt;- z + demand_alt(3 + y) * y * (1/pretax_perc_high)&#39;,
-         &#39;Producer Surplus ($)&#39; = 
-           &#39;p &lt;- producer_surplus(x)&#39;)
+  rename(&#39;SCC ($/MTCO2eq.)&#39; = &#39;x&#39;, 
+         &#39;Tax Rate ($)&#39; = &#39;y &lt;- (x/2204.62) * 19.6&#39;,
+         &#39;Pre Distribution High ($)&#39; = &#39;q &lt;- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)&#39;,
+         &#39;Pre Distribution Low ($)&#39; = &#39;z &lt;- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)&#39;,
+         &#39;Post Distribution High ($)&#39; = &#39;v &lt;- q + demand_alt(3 + y) * y * pretax_perc_high&#39;,
+         &#39;Post Distribution Low ($)&#39; = &#39;w &lt;- z + demand_alt(3 + y) * y * (1/pretax_perc_high)&#39;,
+         &#39;Producer Surplus ($)&#39; = &#39;p &lt;- producer_surplus(x)&#39;)
 
 # Making an aesthetic tibble table to present:
 
@@ -1152,15 +1145,15 @@ Producer Surplus ($)
 </table>
 <div id="a-overall-welfare-of-high-income-consumers" class="section level3">
 <h3>a) Overall welfare of “high” income consumers:</h3>
-<p>insert</p>
+<p><em>insert</em></p>
 </div>
 <div id="b-overall-welfare-of-low-income-consumers" class="section level3">
 <h3>b) Overall welfare of “low” income consumers:</h3>
-<p>insert</p>
+<p><em>insert</em></p>
 </div>
 <div id="c-overall-welfare-of-gas-producers" class="section level3">
 <h3>c) Overall welfare of gas producers:</h3>
-<p>insert</p>
+<p><em>insert</em></p>
 <pre class="r"><code># clean_benefit_tible &lt;- benefit_tible %&gt;%
 #   rename( y = &quot;y &lt;- (x/2204.62)*19.6&quot;)
   #         q = q &lt;- ((a_high-(3+y))*(demand((3+y),
