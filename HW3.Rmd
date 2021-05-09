@@ -434,7 +434,7 @@ inverse_demand_electric <- function(q,
   p <- model$coefficients[[1]]/2 + model$coefficients[[2]]*q
   return(p)
 }
-inverse_demand_electric(3,)
+# inverse_demand_electric(3,)
 ```
 
 ### a) What is total gas consumption?
