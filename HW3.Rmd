@@ -174,7 +174,7 @@ t = (51/2204.62)*19.6
 
 # 1) Marginal Externality Cost of Gasoline
 
-The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by `$51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas`.
+*The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by $51 per metric ton/2204.62 lbs per metric ton x 19.6 lbs per gallon gas.*
 
 ```{r}
 # Social benefit:
@@ -211,33 +211,33 @@ plot_e <- plot_2 + xlim(0,
 # 2) Curves
 
 ### What is the aggregate daily demand curve for gasoline?
-From $0 to `r round(a_low,2)`: P = `r round(b_tot,7)`Q + `r round(a_tot,2)`, from `r round(a_low,2)` to infity:  P = `r round(b_high,7)`Q + `r round(a_high,2)`  
+*From $0 to `r round(a_low,2)`: P = `r round(b_tot,7)`Q + `r round(a_tot,2)`, from `r round(a_low,2)` to infity:  P = `r round(b_high,7)`Q + `r round(a_high,2)`*  
 
 ### What is the supply curve for gasoline?
-P = `r round(s_slope,8)`Q + 0
+*P = `r round(s_slope,8)`Q + 0*
 
 ### What is the “benefit” to consumers under the status quo?
-`r round(social_tot,1)`
+*`r round(social_tot,1)`*
 
 ### What is the “benefit” to producers under the status quo?
-`r round(producer,1)`
+*`r round(producer,1)`*
 
 ### What is the environmental cost under the status quo?
-`r round(env_cost,1)`
+*`r round(env_cost,1)`*
 
 # 3) Consumer Benefit
 
 ### How is the current consumer benefit divided between “high” and “low” income consumers?
-"High" income consumers attain `$``r round(social_high,0)` of benefit and "low" income consumers  attain `$``r round(social_low,0)` of benefit for a total of `$``r round(social_tot,0)`. "High" income consumers receive `r round(high_percentage,0)` percent of the total benefit.
+*"High" income consumers attain `$``r round(social_high,0)` of benefit and "low" income consumers  attain `$``r round(social_low,0)` of benefit for a total of `$``r round(social_tot,0)`. "High" income consumers receive `r round(high_percentage,0)` percent of the total benefit.*
 
 # 4) Derive the Optimal Gas Tax: `$``r round(t,2)` 
 
 ### a) How will this tax affect the amount of gasoline produced and consumed?
-The amount of gasoline produced and consumed will move from `r round(demand_alt(3), 0)`, down to `r round (demand_alt(3.45), 0)`. 
+*The amount of gasoline produced and consumed will move from `r round(demand_alt(3), 0)`, down to `r round (demand_alt(3.45), 0)`.*
 
 ### b) How will this tax affect the price of gasoline?
-The price of gas for consumers is $3.45 inclusive of the tax.
-Meanwhile, suppliers get paid $3 per gallon.
+*The price of gas for consumers is $3.45 inclusive of the tax.*
+*Meanwhile, suppliers get paid $3 per gallon.*
 
 ```{r}
 # Social benefit:
@@ -295,19 +295,19 @@ net_producer <- producer - producer_surplus(51)
 ```
 
 ### c) How will this tax affect the overall welfare of “high” income consumers?
-Welfare for "high" income consumers will go from `r round(social_high,0)` down to `r round(wellfare_high(51),0)`, or a loss of `r round(net_high,0)`.
+*Welfare for "high" income consumers will go from `r round(social_high,0)` down to `r round(wellfare_high(51),0)`, or a loss of `r round(net_high,0)`.*
 
 ### d) How will this tax affect the overall welfare of “low” income consumers?
-Before the tax, total welfare for "low" income consumers `r round(total_welfare_low,0)` was the total benefit `r round(social_low,0)` for "low" income people - the environmental damage burden that fell on them `r round(tax_revenue(51),0)`. Considering that no environemtnal damage occurs after the tax, the new total benefit for "low" income people is `r round(wellfare_low(51),0)`, or a gain of `r round(-net_low,0)`.
+*Before the tax, total welfare for "low" income consumers `r round(total_welfare_low,0)` was the total benefit `r round(social_low,0)` for "low" income people - the environmental damage burden that fell on them `r round(tax_revenue(51),0)`. Considering that no environemtnal damage occurs after the tax, the new total benefit for "low" income people is `r round(wellfare_low(51),0)`, or a gain of `r round(-net_low,0)`.*
 
 ### e) How will this tax affect gas producers?
-Supplier surplus for producers will go from `r round(producer,0)` down to `r round(producer_surplus(51),0)`, or a loss of `r round(net_producer,0)`.
+*Supplier surplus for producers will go from `r round(producer,0)` down to `r round(producer_surplus(51),0)`, or a loss of `r round(net_producer,0)`.*
 
 ### f) How will this tax affect total environmental damage?
-At this tax rate there is no environmental damage accounted for with a social cost of carbon of $51.
+*At this tax rate there is no environmental damage accounted for with a social cost of carbon of $51.*
 
 ### g) How will this tax affect total tax revenue generated?
-Instead of $0 in tax, this will generate `r round(tax_revenue(51),0)`.
+*Instead of $0 in tax, this will generate `r round(tax_revenue(51),0)`.*
 
 # 5) Redistributing Gas Tax Revenue to Consumers
 
@@ -355,20 +355,13 @@ tibble_base <- tibble(x = c(51,
 
 benefit_table <- tibble_base %>% 
   round(digits = 2) %>% 
-  rename('SCC ($/MTCO2eq.)' = 
-           'x', 
-         'Tax Rate ($)' = 
-           'y <- (x/2204.62) * 19.6',
-         'Pre Distribution High ($)' = 
-           'q <- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)',
-         'Pre Distribution Low ($)' = 
-           'z <- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)',
-         'Post Distribution High ($)' = 
-           'v <- q + demand_alt(3 + y) * y * pretax_perc_high',
-         'Post Distribution Low ($)' = 
-           'w <- z + demand_alt(3 + y) * y * (1/pretax_perc_high)',
-         'Producer Surplus ($)' = 
-           'p <- producer_surplus(x)')
+  rename('SCC ($/MTCO2eq.)' = 'x', 
+         'Tax Rate ($)' = 'y <- (x/2204.62) * 19.6',
+         'Pre Distribution High ($)' = 'q <- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)',
+         'Pre Distribution Low ($)' = 'z <- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)',
+         'Post Distribution High ($)' = 'v <- q + demand_alt(3 + y) * y * pretax_perc_high',
+         'Post Distribution Low ($)' = 'w <- z + demand_alt(3 + y) * y * (1/pretax_perc_high)',
+         'Producer Surplus ($)' = 'p <- producer_surplus(x)')
 
 # Making an aesthetic tibble table to present:
 
@@ -378,13 +371,13 @@ kbl(benefit_table) %>%
 ```
 
 ### a) Overall welfare of “high” income consumers:
-insert
+*insert*
 
 ### b) Overall welfare of “low” income consumers:
-insert
+*insert*
 
 ### c) Overall welfare of gas producers:
-insert
+*insert*
 
 
 
