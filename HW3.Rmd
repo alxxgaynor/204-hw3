@@ -309,6 +309,8 @@ At this tax rate there is no environmental damage accounted for with a social co
 ### g) How will this tax affect total tax revenue generated?
 Instead of $0 in tax, this will generate `r round(tax_revenue(51),0)`.
 
+# 5) Redistributing Gas Tax Revenue to Consumers
+
 ```{r, results=TRUE}
 # Redistributed:
 
@@ -353,19 +355,19 @@ tibble_base <- tibble(x = c(51,
 
 benefit_table <- tibble_base %>% 
   round(digits = 2) %>% 
-  rename('SCC' = 
+  rename('SCC ($/MTCO2eq.)' = 
            'x', 
-         'Tax Rate' = 
+         'Tax Rate ($)' = 
            'y <- (x/2204.62) * 19.6',
-         'Pre-Distribution High' = 
+         'Pre Distribution High ($)' = 
            'q <- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)',
-         'Pre-Distribution Low' = 
+         'Pre Distribution Low ($)' = 
            'z <- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)',
-         'Post-Distribution High' = 
+         'Post Distribution High ($)' = 
            'v <- q + demand_alt(3 + y) * y * pretax_perc_high',
-         'Post-Distribution Low' = 
+         'Post Distribution Low ($)' = 
            'w <- z + demand_alt(3 + y) * y * (1/pretax_perc_high)',
-         'Producer Surplus' = 
+         'Producer Surplus ($)' = 
            'p <- producer_surplus(x)')
 
 # Making an aesthetic tibble table to present:
@@ -374,6 +376,15 @@ kbl(benefit_table) %>%
   kable_styling(full_width = FALSE, 
                 "hover")
 ```
+
+### a) Overall welfare of “high” income consumers:
+insert
+
+### b) Overall welfare of “low” income consumers:
+insert
+
+### c) Overall welfare of gas producers:
+insert
 
 
 
