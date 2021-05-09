@@ -241,11 +241,14 @@ social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_deman
 social_high = (a_high-3)*(demand(3,model_demand_high))/2
 social_tot <- social_low + social_high
 
-welfare <- function(x){
+t_var <- function(x){
   y <- (x/2204.62)*19.6
   return(y)
   }
 
+welfare_low <- function(x){
+  y <- ((a_low-(3+t_var))*(demand((3+t_var),model_demand_low))/2)
+}
 welfare(51)
 ```
 
