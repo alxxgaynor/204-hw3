@@ -1225,9 +1225,15 @@ inverse_demand_electric &lt;- function(q,
                                     model){
   p &lt;- model$coefficients[[1]]/2 + model$coefficients[[2]]*q
   return(p)
-  }
+}
+demand_electric &lt;- function(p,
+                                    model){
+  q &lt;- (p - ((model$coefficients[[1]])/2))/model$coefficients[[2]]
+  return(q)
+}
 
-# inverse_demand_electric(3,)</code></pre>
+inverse_demand_electric(3,model_demand_high)
+demand_electric(3,model_demand_high)</code></pre>
 <div id="a-what-is-total-gas-consumption" class="section level3">
 <h3>a) What is total gas consumption?</h3>
 <p><strong>isnert</strong></p>
