@@ -948,6 +948,10 @@ net_producer &lt;- producer - producer_surplus(51)</code></pre>
 <div id="g-how-will-this-tax-affect-total-tax-revenue-generated" class="section level3">
 <h3>g) How will this tax affect total tax revenue generated?</h3>
 <p>Instead of $0 in tax, this will generate 261501.</p>
+</div>
+</div>
+<div id="redistributing-gas-tax-revenue-to-consumers" class="section level1">
+<h1>5) Redistributing Gas Tax Revenue to Consumers</h1>
 <pre class="r"><code># Redistributed:
 
 pretax_perc_high &lt;- demand(3,
@@ -991,19 +995,19 @@ tibble_base &lt;- tibble(x = c(51,
 
 benefit_table &lt;- tibble_base %&gt;% 
   round(digits = 2) %&gt;% 
-  rename(&#39;SCC&#39; = 
+  rename(&#39;SCC ($/MTCO2eq.)&#39; = 
            &#39;x&#39;, 
-         &#39;Tax Rate&#39; = 
+         &#39;Tax Rate ($)&#39; = 
            &#39;y &lt;- (x/2204.62) * 19.6&#39;,
-         &#39;Pre-Distribution High&#39; = 
+         &#39;Pre Distribution High ($)&#39; = 
            &#39;q &lt;- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)&#39;,
-         &#39;Pre-Distribution Low&#39; = 
+         &#39;Pre Distribution Low ($)&#39; = 
            &#39;z &lt;- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)&#39;,
-         &#39;Post-Distribution High&#39; = 
+         &#39;Post Distribution High ($)&#39; = 
            &#39;v &lt;- q + demand_alt(3 + y) * y * pretax_perc_high&#39;,
-         &#39;Post-Distribution Low&#39; = 
+         &#39;Post Distribution Low ($)&#39; = 
            &#39;w &lt;- z + demand_alt(3 + y) * y * (1/pretax_perc_high)&#39;,
-         &#39;Producer Surplus&#39; = 
+         &#39;Producer Surplus ($)&#39; = 
            &#39;p &lt;- producer_surplus(x)&#39;)
 
 # Making an aesthetic tibble table to present:
@@ -1015,25 +1019,16 @@ kbl(benefit_table) %&gt;%
 <thead>
 <tr>
 <th style="text-align:right;">
-SCC
+SCC (<span class="math inline">\(/MTCO2eq.) &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Tax Rate (\)</span>)
 </th>
 <th style="text-align:right;">
-Tax Rate
+Pre Distribution High (<span class="math inline">\() &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Pre Distribution Low (\)</span>)
 </th>
 <th style="text-align:right;">
-Pre-Distribution High
+Post Distribution High (<span class="math inline">\() &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Post Distribution Low (\)</span>)
 </th>
 <th style="text-align:right;">
-Pre-Distribution Low
-</th>
-<th style="text-align:right;">
-Post-Distribution High
-</th>
-<th style="text-align:right;">
-Post-Distribution Low
-</th>
-<th style="text-align:right;">
-Producer Surplus
+Producer Surplus ($)
 </th>
 </tr>
 </thead>
@@ -1155,6 +1150,17 @@ Producer Surplus
 </tr>
 </tbody>
 </table>
+<div id="a-overall-welfare-of-high-income-consumers" class="section level3">
+<h3>a) Overall welfare of “high” income consumers:</h3>
+<p>insert</p>
+</div>
+<div id="b-overall-welfare-of-low-income-consumers" class="section level3">
+<h3>b) Overall welfare of “low” income consumers:</h3>
+<p>insert</p>
+</div>
+<div id="c-overall-welfare-of-gas-producers" class="section level3">
+<h3>c) Overall welfare of gas producers:</h3>
+<p>insert</p>
 <pre class="r"><code># clean_benefit_tible &lt;- benefit_tible %&gt;%
 #   rename( y = &quot;y &lt;- (x/2204.62)*19.6&quot;)
   #         q = q &lt;- ((a_high-(3+y))*(demand((3+y),
