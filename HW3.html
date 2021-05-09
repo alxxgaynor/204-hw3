@@ -979,7 +979,11 @@ redist_l &lt;- function (x){
 
 # Mutating a table via tibble:
 
-tibble_base &lt;- tibble(x = c(51,75,100,125,150),
+benefit_table &lt;- tibble(x = c(51,
+                            75,
+                            100,
+                            125,
+                            150),
                       y &lt;- (x/2204.62)*19.6,
                       q &lt;- ((a_high-(3+y))*(demand((3+y),
                                                    model_demand_high))/2),
@@ -987,44 +991,53 @@ tibble_base &lt;- tibble(x = c(51,75,100,125,150),
                                                   model_demand_low))/2),
                       v &lt;- q + demand_alt(3+y)*y*pretax_perc_high,
                       w &lt;- z+demand_alt(3+y)*y*(1/pretax_perc_high),
-                      p &lt;- producer_surplus(x))
-
-benefit_table &lt;- tibble_base %&gt;% 
+                      p &lt;- producer_surplus(x)) %&gt;% 
   round(digits = 2) %&gt;% 
-  rename(&quot;SCC ($/MTCO2eq.)&quot; = &quot;x&quot;, 
-         &quot;Tax Rate ($)&quot; = &quot;y &lt;- (x/2204.62) * 19.6&quot;,
-         &quot;Pre Distribution High ($)&quot; = &quot;q &lt;- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)&quot;,
-         &quot;Pre Distribution Low ($)&quot; = &quot;z &lt;- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)&quot;,
-         &quot;Post Distribution High ($)&quot; = &quot;v &lt;- q + demand_alt(3 + y) * y * pretax_perc_high&quot;,
-         &quot;Post Distribution Low ($)&quot; = &quot;w &lt;- z + demand_alt(3 + y) * y * (1/pretax_perc_high)&quot;,
-         &quot;Producer Surplus ($)&quot; = &quot;p &lt;- producer_surplus(x)&quot;)
+  rename(&quot;SCC ($/MTCO2eq.)&quot; = &quot;x&quot;) %&gt;% 
+  rename(&quot;Tax Rate ($)&quot; = &quot;y &lt;- (x/2204.62) * 19.6&quot;) %&gt;% 
+  rename(&quot;Pre Distribution High ($)&quot; = &quot;q &lt;- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)&quot;) %&gt;% 
+  rename(&quot;Pre Distribution Low ($)&quot; = &quot;z &lt;- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)&quot;) %&gt;% 
+  rename(&quot;Post Distribution High ($)&quot; = &quot;v &lt;- q + demand_alt(3 + y) * y * pretax_perc_high&quot;) %&gt;% 
+  rename(&quot;Post Distribution Low ($)&quot; = &quot;w &lt;- z + demand_alt(3 + y) * y * (1/pretax_perc_high)&quot;) %&gt;% 
+  rename(&quot;Producer Surplus ($)&quot; = &quot;p &lt;- producer_surplus(x)&quot;)
 
 # Making an aesthetic tibble table to present:
 
 kbl(benefit_table,
-  col.names = c(&quot;SCC ($/MTCO2eq.)&quot;,
-                &quot;Tax Rate ($)&quot;,
-                &quot;Pre Distribution High ($)&quot;,
-                &quot;Pre Distribution Low ($)&quot;,
-                &quot;Post Distribution High ($)&quot;,
-                &quot;Post Distribution Low ($)&quot;,
-                &quot;Producer Surplus ($)&quot;)) %&gt;% 
+  col.names = c(&quot;SCC - $/MTCO2eq.&quot;,
+                &quot;Tax Rate - $&quot;,
+                &quot;Pre Distribution High - $&quot;,
+                &quot;Pre Distribution Low - $&quot;,
+                &quot;Post Distribution High - $&quot;,
+                &quot;Post Distribution Low - $&quot;,
+                &quot;Producer Surplus - $&quot;),
+  escape = FALSE,
+  booktabs = TRUE) %&gt;% 
   kable_styling(full_width = FALSE, 
                 &quot;striped&quot;)</code></pre>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:right;">
-SCC (<span class="math inline">\(/MTCO2eq.) &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Tax Rate (\)</span>)
+SCC - $/MTCO2eq.
 </th>
 <th style="text-align:right;">
-Pre Distribution High (<span class="math inline">\() &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Pre Distribution Low (\)</span>)
+Tax Rate - $
 </th>
 <th style="text-align:right;">
-Post Distribution High (<span class="math inline">\() &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Post Distribution Low (\)</span>)
+Pre Distribution High - $
 </th>
 <th style="text-align:right;">
-Producer Surplus ($)
+Pre Distribution Low - $
+</th>
+<th style="text-align:right;">
+Post Distribution High - $
+</th>
+<th style="text-align:right;">
+Post Distribution Low - $
+</th>
+<th style="text-align:right;">
+Producer Surplus - $
 </th>
 </tr>
 </thead>
@@ -1208,11 +1221,12 @@ plot_2 &lt;- plot_1 +
 
 # Inverse demand:
 
-inverse_demand_electric &lt;- function(q, 
-                           model){
+inverse_demand_electric &lt;- function(q,
+                                    model){
   p &lt;- model$coefficients[[1]]/2 + model$coefficients[[2]]*q
   return(p)
-}
+  }
+
 # inverse_demand_electric(3,)</code></pre>
 <div id="a-what-is-total-gas-consumption" class="section level3">
 <h3>a) What is total gas consumption?</h3>
@@ -1226,144 +1240,6 @@ inverse_demand_electric &lt;- function(q,
 <h3>c) What value of the gasoline tax makes the total environmental damage the same as the electric car technology?</h3>
 <p><strong>insert</strong></p>
 </div>
-</div>
-<div id="making-an-aesthetic-tibble-table-to-present" class="section level1">
-<h1>Making an aesthetic tibble table to present:</h1>
-<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:right;">
-SCC (<span class="math inline">\(/MTCO2eq.) &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Tax Rate (\)</span>)
-</th>
-<th style="text-align:right;">
-Pre Distribution High (<span class="math inline">\() &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Pre Distribution Low (\)</span>)
-</th>
-<th style="text-align:right;">
-Post Distribution High (<span class="math inline">\() &lt;/th&gt;  &lt;th style=&quot;text-align:right;&quot;&gt; Post Distribution Low (\)</span>)
-</th>
-<th style="text-align:right;">
-Producer Surplus ($)
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-51
-</td>
-<td style="text-align:right;">
-0.45
-</td>
-<td style="text-align:right;">
-2792512
-</td>
-<td style="text-align:right;">
-512498.3
-</td>
-<td style="text-align:right;">
-2996776
-</td>
-<td style="text-align:right;">
-847274.0
-</td>
-<td style="text-align:right;">
-831295.3
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-75
-</td>
-<td style="text-align:right;">
-0.67
-</td>
-<td style="text-align:right;">
-2696854
-</td>
-<td style="text-align:right;">
-486275.4
-</td>
-<td style="text-align:right;">
-2991492
-</td>
-<td style="text-align:right;">
-969168.3
-</td>
-<td style="text-align:right;">
-799773.4
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.89
-</td>
-<td style="text-align:right;">
-2598982
-</td>
-<td style="text-align:right;">
-459692.0
-</td>
-<td style="text-align:right;">
-2983847
-</td>
-<td style="text-align:right;">
-1090459.9
-</td>
-<td style="text-align:right;">
-767586.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-125
-</td>
-<td style="text-align:right;">
-1.11
-</td>
-<td style="text-align:right;">
-2502920
-</td>
-<td style="text-align:right;">
-433855.9
-</td>
-<td style="text-align:right;">
-2974017
-</td>
-<td style="text-align:right;">
-1205954.1
-</td>
-<td style="text-align:right;">
-736059.6
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-150
-</td>
-<td style="text-align:right;">
-1.33
-</td>
-<td style="text-align:right;">
-2408666
-</td>
-<td style="text-align:right;">
-408766.9
-</td>
-<td style="text-align:right;">
-2962004
-</td>
-<td style="text-align:right;">
-1315650.9
-</td>
-<td style="text-align:right;">
-705194.3
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 
 
