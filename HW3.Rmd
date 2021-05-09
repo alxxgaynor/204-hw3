@@ -244,7 +244,7 @@ welfare <- function(x){
   return(y)
   }
 
-demand_alt(0)
+welfare(51)
 ```
 
 ### c) How will this tax affect the overall welfare of “high” income consumers?
