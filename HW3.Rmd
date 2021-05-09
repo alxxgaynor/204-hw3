@@ -338,8 +338,6 @@ redist_l <- function (x){
   }
 
 # Mutating a table via tibble:
-
-<<<<<<< HEAD
 benefit_table <- tibble(x = c(0,
                               51,
                             75,
@@ -362,7 +360,7 @@ benefit_table <- tibble(x = c(0,
   rename("Post Distribution High ($)" = "v <- q + demand_alt(3 + y) * y * pretax_perc_high") %>% 
   rename("Post Distribution Low ($)" = "w <- z + demand_alt(3 + y) * y * (1/pretax_perc_high)") %>% 
   rename("Producer Surplus ($)" = "p <- producer_surplus(x)")
-=======
+
 benefit_table <- tibble(x = c(51,
                               75,
                               100,
@@ -377,7 +375,6 @@ benefit_table <- tibble(x = c(51,
                         w <- z+demand_alt(3+y)*y*(1/pretax_perc_high),
                         p <- producer_surplus(x)) %>% 
   round(digits = 2)
->>>>>>> 2017786f818c7904cf01f8facfcfff23cfbf9b38
 
 # Making an aesthetic tibble table to present:
 
