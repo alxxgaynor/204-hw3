@@ -977,67 +977,58 @@ redist_l &lt;- function (x){
   return(w)
   }
 
-# Mutating a table via tibble:
-
 benefit_table &lt;- tibble(x = c(51,
-                            75,
-                            100,
-                            125,
-                            150),
-                      y &lt;- (x/2204.62)*19.6,
-                      q &lt;- ((a_high-(3+y))*(demand((3+y),
-                                                   model_demand_high))/2),
-                      z &lt;- ((a_low-(3+y))*(demand((3+y),
-                                                  model_demand_low))/2),
-                      v &lt;- q + demand_alt(3+y)*y*pretax_perc_high,
-                      w &lt;- z+demand_alt(3+y)*y*(1/pretax_perc_high),
-                      p &lt;- producer_surplus(x)) %&gt;% 
-  round(digits = 2) %&gt;% 
-  rename(&quot;SCC ($/MTCO2eq.)&quot; = &quot;x&quot;) %&gt;% 
-  rename(&quot;Tax Rate ($)&quot; = &quot;y &lt;- (x/2204.62) * 19.6&quot;) %&gt;% 
-  rename(&quot;Pre Distribution High ($)&quot; = &quot;q &lt;- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)&quot;) %&gt;% 
-  rename(&quot;Pre Distribution Low ($)&quot; = &quot;z &lt;- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)&quot;) %&gt;% 
-  rename(&quot;Post Distribution High ($)&quot; = &quot;v &lt;- q + demand_alt(3 + y) * y * pretax_perc_high&quot;) %&gt;% 
-  rename(&quot;Post Distribution Low ($)&quot; = &quot;w &lt;- z + demand_alt(3 + y) * y * (1/pretax_perc_high)&quot;) %&gt;% 
-  rename(&quot;Producer Surplus ($)&quot; = &quot;p &lt;- producer_surplus(x)&quot;)
+                              75,
+                              100,
+                              125,
+                              150),
+                        y &lt;- (x/2204.62)*19.6,
+                        q &lt;- ((a_high-(3+y))*(demand((3+y),
+                                                     model_demand_high))/2),
+                        z &lt;- ((a_low-(3+y))*(demand((3+y),
+                                                    model_demand_low))/2),
+                        v &lt;- q + demand_alt(3+y)*y*pretax_perc_high,
+                        w &lt;- z+demand_alt(3+y)*y*(1/pretax_perc_high),
+                        p &lt;- producer_surplus(x)) %&gt;% 
+  round(digits = 2)
 
 # Making an aesthetic tibble table to present:
 
 kbl(benefit_table,
-  col.names = c(&quot;SCC - $/MTCO2eq.&quot;,
-                &quot;Tax Rate - $&quot;,
-                &quot;Pre Distribution High - $&quot;,
-                &quot;Pre Distribution Low - $&quot;,
-                &quot;Post Distribution High - $&quot;,
-                &quot;Post Distribution Low - $&quot;,
-                &quot;Producer Surplus - $&quot;),
-  escape = FALSE,
-  booktabs = TRUE) %&gt;% 
+    col.names = c(&quot;SCC $/MTCO2eq.&quot;,
+                  &quot;Tax Rate $&quot;,
+                  &quot;Pre Distribution High $&quot;,
+                  &quot;Pre Distribution Low $&quot;,
+                  &quot;Post Distribution High $&quot;,
+                  &quot;Post Distribution Low $&quot;,
+                  &quot;Producer Surplus $&quot;),
+    escape = FALSE,
+    booktabs = TRUE) %&gt;% 
   kable_styling(full_width = FALSE, 
                 &quot;striped&quot;)</code></pre>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:right;">
-SCC - $/MTCO2eq.
+SCC $/MTCO2eq.
 </th>
 <th style="text-align:right;">
-Tax Rate - $
+Tax Rate $
 </th>
 <th style="text-align:right;">
-Pre Distribution High - $
+Pre Distribution High $
 </th>
 <th style="text-align:right;">
-Pre Distribution Low - $
+Pre Distribution Low $
 </th>
 <th style="text-align:right;">
-Post Distribution High - $
+Post Distribution High $
 </th>
 <th style="text-align:right;">
-Post Distribution Low - $
+Post Distribution Low $
 </th>
 <th style="text-align:right;">
-Producer Surplus - $
+Producer Surplus $
 </th>
 </tr>
 </thead>
@@ -1161,37 +1152,20 @@ Producer Surplus - $
 </table>
 <div id="a-overall-welfare-of-high-income-consumers" class="section level3">
 <h3>a) Overall welfare of “high” income consumers:</h3>
-<p><strong>insert</strong></p>
+<p><strong>As SCC increases from $51 to $150, a pre-distribution gas tax would have a negative impact on “high” income consumers, decreasing their consumer benefit from $2,792,512.00 to $2,408,666.00. And via post-distribution, “high” income consumers will only be negatively impacted slightly, decreasing their consumer benefit from $2,996,776.00 to $2,962,004.00.</strong></p>
 </div>
 <div id="b-overall-welfare-of-low-income-consumers" class="section level3">
 <h3>b) Overall welfare of “low” income consumers:</h3>
-<p><strong>insert</strong></p>
+<p><strong>As SCC increases from $51 to $150, a pre-distribution gas tax would have a significant negative impact on “low” income consumers, decreasing their consumer benefit from $512,498.30 to $408,766.90. And via post-distribution, “low” income consumers will greatly benefit, increasing their consumer benefit from $847,274.00 to $1,315,650.90.</strong></p>
 </div>
 <div id="c-overall-welfare-of-gas-producers" class="section level3">
 <h3>c) Overall welfare of gas producers:</h3>
-<p><strong>insert</strong></p>
+<p><strong>As SCC increases from $51 to $150, a gas tax would have a negative impact on gas producers. Producer surplus would decrease from $831,295.30 to $705,194.30.</strong></p>
 </div>
 </div>
 <div id="new-demand-from-new-electric-car-technology" class="section level1">
 <h1>6) New Demand From New Electric Car Technology</h1>
-<pre class="r"><code># clean_benefit_tible &lt;- benefit_tible %&gt;%
-#   rename( y = &quot;y &lt;- (x/2204.62)*19.6&quot;)
-  #         q = q &lt;- ((a_high-(3+y))*(demand((3+y),
-  #                              model_demand_high))/2),
-  #         z = z &lt;- ((a_low-(3+y))*(demand((3+y),
-  #                             model_demand_low))/2),
-  #         v = v &lt;- q + demand_alt(3+y)*y*pretax_perc_high,
-  #         w = w &lt;- z+demand_alt(3+y)*y*(1/pretax_perc_high),
-  #         v = p &lt;- producer_surplus(x))
-
-# ggplot(benefit_tible, aes() +
-#   geom_histogram() +
-#   facet_wrap(~ common_name) +
-#   xlab(&quot;Common Name&quot;) +
-#   ylab(&quot;Size&quot;) +
-#   theme(legend.position = &quot;none&quot;)
-
-model_demand_low &lt;- lm(price ~ q_low, 
+<pre class="r"><code>model_demand_low &lt;- lm(price ~ q_low, 
                        data=gas_demand)
 
 a_low &lt;- model_demand_low$coefficients[[1]]
@@ -1209,28 +1183,40 @@ price_fitted_low &lt;- a_low + b_low*gas_demand$q_low
 
 price_fitted_high &lt;- a_high + b_high*gas_demand$q_high
 
-plot_2 &lt;- plot_1 +
-  geom_line(aes(y=price_fitted_low, 
-                x=q_low)) +
-  geom_line(aes(y=price_fitted_high, 
-                x=q_high))
 
 # Low income demand function: `P = `r b_low`Q + `r a_low``
 
 # High income demand function: `P = `r b_high`Q + `r a_high``
 
-# Inverse demand:
+# Inverse demand - electric:
 
 inverse_demand_electric &lt;- function(q,
                                     model){
   p &lt;- model$coefficients[[1]]/2 + model$coefficients[[2]]*q
   return(p)
-  }
+}
+demand_electric &lt;- function(p,
+                                    model){
+  q &lt;- (p - ((model$coefficients[[1]])/2))/model$coefficients[[2]]
+  return(q)
+}
 
-# inverse_demand_electric(3,)</code></pre>
+inverse_demand_electric(3,model_demand_high)
+demand_electric(3,model_demand_high)
+demand(3,model_demand_low)
+
+e_gas_tot &lt;- demand_electric(3,model_demand_high) +
+  demand(3,model_demand_low)
+# Social benefit - electric:
+
+social_low = (a_low-3)*(demand(3,model_demand_low))/2
+
+social_high_e = ((a_high/2)-3)*(demand_electric(3,model_demand_high))/2
+
+social_tot &lt;- social_low + social_high</code></pre>
 <div id="a-what-is-total-gas-consumption" class="section level3">
 <h3>a) What is total gas consumption?</h3>
-<p><strong>isnert</strong></p>
+<p><code>e_gas_tot</code></p>
 </div>
 <div id="b-what-is-the-total-environmental-externality" class="section level3">
 <h3>b) What is the total environmental externality?</h3>

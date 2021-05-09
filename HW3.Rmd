@@ -337,8 +337,6 @@ redist_l <- function (x){
   return(w)
   }
 
-# Mutating a table via tibble:
-
 benefit_table <- tibble(x = c(51,
                               75,
                               100,
@@ -382,22 +380,6 @@ kbl(benefit_table,
 # 6) New Demand From New Electric Car Technology
 
 ```{r}
-# clean_benefit_tible <- benefit_tible %>%
-#   rename( y = "y <- (x/2204.62)*19.6")
-  #         q = q <- ((a_high-(3+y))*(demand((3+y),
-  #                              model_demand_high))/2),
-  #         z = z <- ((a_low-(3+y))*(demand((3+y),
-  #                             model_demand_low))/2),
-  #         v = v <- q + demand_alt(3+y)*y*pretax_perc_high,
-  #         w = w <- z+demand_alt(3+y)*y*(1/pretax_perc_high),
-  #         v = p <- producer_surplus(x))
-
-# ggplot(benefit_tible, aes() +
-#   geom_histogram() +
-#   facet_wrap(~ common_name) +
-#   xlab("Common Name") +
-#   ylab("Size") +
-#   theme(legend.position = "none")
 
 model_demand_low <- lm(price ~ q_low, 
                        data=gas_demand)
@@ -417,29 +399,42 @@ price_fitted_low <- a_low + b_low*gas_demand$q_low
 
 price_fitted_high <- a_high + b_high*gas_demand$q_high
 
-plot_2 <- plot_1 +
-  geom_line(aes(y=price_fitted_low, 
-                x=q_low)) +
-  geom_line(aes(y=price_fitted_high, 
-                x=q_high))
 
 # Low income demand function: `P = `r b_low`Q + `r a_low``
 
 # High income demand function: `P = `r b_high`Q + `r a_high``
 
-# Inverse demand:
+# Inverse demand - electric:
 
 inverse_demand_electric <- function(q,
                                     model){
   p <- model$coefficients[[1]]/2 + model$coefficients[[2]]*q
   return(p)
-  }
+}
+demand_electric <- function(p,
+                                    model){
+  q <- (p - ((model$coefficients[[1]])/2))/model$coefficients[[2]]
+  return(q)
+}
 
-# inverse_demand_electric(3,)
+inverse_demand_electric(3,model_demand_high)
+demand_electric(3,model_demand_high)
+demand(3,model_demand_low)
+
+e_gas_tot <- demand_electric(3,model_demand_high) +
+  demand(3,model_demand_low)
+# Social benefit - electric:
+
+social_low = (a_low-3)*(demand(3,model_demand_low))/2
+
+social_high_e = ((a_high/2)-3)*(demand_electric(3,model_demand_high))/2
+
+social_tot <- social_low + social_high
+
 ```
 
 ### a) What is total gas consumption?
-**isnert**
+`r e_gas_tot`
 
 ### b) What is the total environmental externality?
 **insert**
