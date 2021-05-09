@@ -233,24 +233,35 @@ plot_e <- plot_2 + xlim(0,
 ```{r}
 # Social benefit:
 
-scc <- 51
-t_variable <- (scc/2204.62)*19.6
-
-social_low_optimal = (a_low-(3+t_variable))*(demand((3+t_variable),model_demand_low))/2
-social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_demand_high))/2
-
-social_high = (a_high-3)*(demand(3,model_demand_high))/2
-social_tot <- social_low + social_high
+# scc <- 51
+# t_variable <- (scc/2204.62)*19.6
+# 
+# social_low_optimal = (a_low-(3+t_variable))*(demand((3+t_variable),model_demand_low))/2
+# social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_demand_high))/2
+# 
+# social_high = (a_high-3)*(demand(3,model_demand_high))/2
+# social_tot <- social_low + social_high
 
 t_var <- function(x){
   y <- (x/2204.62)*19.6
   return(y)
-  }
-
-welfare_low <- function(x){
-  y <- ((a_low-(3+t_var))*(demand((3+t_var),model_demand_low))/2)
 }
-welfare(51)
+t_var(51)
+
+wellfare_low <- function(x){
+  y <- (x/2204.62)*19.6
+  z <- ((a_low-(3+y))*(demand((3+y),model_demand_low))/2)
+  return(z)
+}
+wellfare_low(51)
+
+wellfare_high <- function(x){
+  y <- (x/2204.62)*19.6
+  z <- ((a_high-(3+y))*(demand((3+y),model_demand_high))/2)
+  return(z)
+}
+wellfare_high(51)
+
 ```
 
 ### c) How will this tax affect the overall welfare of “high” income consumers?

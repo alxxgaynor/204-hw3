@@ -520,26 +520,22 @@ demand &lt;- function(p,
   }
 
 demand(0,
-       model_demand_low)</code></pre>
-<pre><code>## [1] 176746.5</code></pre>
-<pre class="r"><code>inverse_demand(176746.5,
-               model_demand_low)</code></pre>
-<pre><code>## [1] -0.0000002959661</code></pre>
-<pre class="r"><code>inverse_demand(demand(0,
+       model_demand_low)
+inverse_demand(176746.5,
+               model_demand_low)
+inverse_demand(demand(0,
                       model_demand_low),
-               model_demand_low)</code></pre>
-<pre><code>## [1] 0</code></pre>
-<pre class="r"><code>demand(3,
-       model_demand_high)</code></pre>
-<pre><code>## [1] 468830.9</code></pre>
-<pre class="r"><code>inverse_demand(176746.5,
-               model_demand_low)</code></pre>
-<pre><code>## [1] -0.0000002959661</code></pre>
-<pre class="r"><code>inverse_demand(demand(0,
+               model_demand_low)
+
+demand(3,
+       model_demand_high)
+inverse_demand(176746.5,
+               model_demand_low)
+inverse_demand(demand(0,
                       model_demand_low),
-               model_demand_low)</code></pre>
-<pre><code>## [1] 0</code></pre>
-<pre class="r"><code>a_low_invert &lt;- demand(0,
+               model_demand_low)
+
+a_low_invert &lt;- demand(0,
                        model_demand_low)
 a_high_invert &lt;- demand(0,
                         model_demand_high)</code></pre>
@@ -561,7 +557,6 @@ demand_alt &lt;- function(p){
   }
 
 demand_alt(0)</code></pre>
-<pre><code>## [1] 755430.3</code></pre>
 <pre class="r"><code># Determine the marginal cost curve:
 
 s_slope &lt;- 3/demand_alt(3)
@@ -655,22 +650,34 @@ plot_e &lt;- plot_2 + xlim(0,
 <h3>The price of gas for consumers is $3.45 inclusive of the tax, meanwhile, suppliers get paid $3 per gallon.</h3>
 <pre class="r"><code># Social benefit:
 
-scc &lt;- 51
-t_variable &lt;- (scc/2204.62)*19.6
+# scc &lt;- 51
+# t_variable &lt;- (scc/2204.62)*19.6
+# 
+# social_low_optimal = (a_low-(3+t_variable))*(demand((3+t_variable),model_demand_low))/2
+# social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_demand_high))/2
+# 
+# social_high = (a_high-3)*(demand(3,model_demand_high))/2
+# social_tot &lt;- social_low + social_high
 
-social_low_optimal = (a_low-(3+t_variable))*(demand((3+t_variable),model_demand_low))/2
-social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_demand_high))/2
-
-social_high = (a_high-3)*(demand(3,model_demand_high))/2
-social_tot &lt;- social_low + social_high
-
-welfare &lt;- function(x){
+t_var &lt;- function(x){
   y &lt;- (x/2204.62)*19.6
   return(y)
-  }
+}
+t_var(51)
 
-welfare(51)</code></pre>
-<pre><code>## [1] 0.4534115</code></pre>
+wellfare_low &lt;- function(x){
+  y &lt;- (x/2204.62)*19.6
+  z &lt;- ((a_low-(3+y))*(demand((3+y),model_demand_low))/2)
+  return(z)
+}
+wellfare_low(51)
+
+wellfare_high &lt;- function(x){
+  y &lt;- (x/2204.62)*19.6
+  z &lt;- ((a_high-(3+y))*(demand((3+y),model_demand_high))/2)
+  return(z)
+}
+wellfare_high(51)</code></pre>
 </div>
 <div id="c-how-will-this-tax-affect-the-overall-welfare-of-high-income-consumers" class="section level3">
 <h3>c) How will this tax affect the overall welfare of “high” income consumers?</h3>
