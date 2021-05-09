@@ -364,16 +364,19 @@ benefit_table <- tibble(x = c(51,
 # Making an aesthetic tibble table to present:
 
 kbl(benefit_table,
-  col.names = c("SCC ($/MTCO2eq.)",
-                "Tax Rate ($)",
-                "Pre Distribution High ($)",
-                "Pre Distribution Low ($)",
-                "Post Distribution High ($)",
-                "Post Distribution Low ($)",
-                "Producer Surplus ($)")) %>% 
+  col.names = c("SCC - $/MTCO2eq.",
+                "Tax Rate - $",
+                "Pre Distribution High - $",
+                "Pre Distribution Low - $",
+                "Post Distribution High - $",
+                "Post Distribution Low - $",
+                "Producer Surplus - $"),
+  escape = FALSE,
+  booktabs = TRUE) %>% 
   kable_styling(full_width = FALSE, 
                 "striped")
 ```
+
 
 ### a) Overall welfare of “high” income consumers:
 **insert**
