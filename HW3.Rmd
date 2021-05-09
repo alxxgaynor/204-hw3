@@ -179,7 +179,7 @@ plot_e <- plot_2 + xlim(0, 800000) +
 
 # 2 Curves
 ### What is the aggregate daily demand curve for gasoline?
-### From $0 to `r round(a_low,2)`: P = `r round(b_tot,7)`Q + `r round(a_tot,1)`, From `r round(a_low,1)` to infity:  P = `r round(b_high,7)`Q + `r round(a_high,1)`  
+### From $0 to `r round(a_low,2)`: P = `r round(b_tot,7)`Q + `r round(a_tot,2)`, From `r round(a_low,2)` to infity:  P = `r round(b_high,7)`Q + `r round(a_high,2)`  
 ### What is the supply curve for gasoline?
 ### P = `r round(s_slope,8)`Q + 0
 ### What is the “benefit” to consumers under the status quo?
@@ -190,9 +190,12 @@ plot_e <- plot_2 + xlim(0, 800000) +
 ### `r round(env_cost,1)`
 
 # 3 Consumer Benefit
-###  "high" income consumers attain `r round(social_high,1)` and "Low" income consumers  attain `r round(social_low,1)`, 
+### How is the current consumer benefit divided between “high” and “low” income consumers?
+### "high" income consumers attain `r round(social_high,1)` and "Low" income consumers  attain `r round(social_low,1)`, which means the "high" income consumers
 
-# 4
-## A
-### The amount of gasloine produced and consumed will move from `r demand_alt(3)` down to `r demand_alt(3.45)`
+# 4 Derive the optimal gas tax: `$``r round(t,2)` 
+### a) How will this tax affect the amount of gasoline produced and consumed?
+### The amount of gasoline produced and consumed will move from `r demand_alt(3)` down to `r demand_alt(3.45)` 
+### b) How will this tax affect the amount of gasoline produced and consumed?
+### 
 
