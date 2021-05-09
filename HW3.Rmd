@@ -339,15 +339,11 @@ redist_l <- function (x){
 
 # Mutating a table via tibble:
 
-<<<<<<< HEAD
-tibble_base <- tibble(x = c(51,75,100,125,150),
-=======
 benefit_table <- tibble(x = c(51,
                             75,
                             100,
                             125,
                             150),
->>>>>>> 7aa9e9683ea4871f86be6d16a11f8b19bdd02675
                       y <- (x/2204.62)*19.6,
                       q <- ((a_high-(3+y))*(demand((3+y),
                                                    model_demand_high))/2),
@@ -438,11 +434,12 @@ plot_2 <- plot_1 +
 
 # Inverse demand:
 
-inverse_demand_electric <- function(q, 
-                           model){
+inverse_demand_electric <- function(q,
+                                    model){
   p <- model$coefficients[[1]]/2 + model$coefficients[[2]]*q
   return(p)
-}
+  }
+
 # inverse_demand_electric(3,)
 ```
 
@@ -454,22 +451,3 @@ inverse_demand_electric <- function(q,
 
 ### c) What value of the gasoline tax makes the total environmental damage the same as the electric car technology?
 **insert**
-
-
-# Making an aesthetic tibble table to present:
-
-```{r, echo = FALSE, warning = FALSE, message = TRUE, results = TRUE}
-benefit_kbl <- kbl(benefit_table,
-                   col.names = c("SCC ($/MTCO2eq.)",
-                "Tax Rate ($)",
-                "Pre Distribution High ($)",
-                "Pre Distribution Low ($)",
-                "Post Distribution High ($)",
-                "Post Distribution Low ($)",
-                "Producer Surplus ($)"),
-                caption = NULL,
-                label = NULL) %>% 
-  kable_styling(full_width = FALSE, 
-                "striped")
-benefit_kbl
-```
