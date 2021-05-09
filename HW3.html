@@ -630,8 +630,8 @@ plot_e &lt;- plot_2 + xlim(0,
 <div id="how-is-the-current-consumer-benefit-divided-between-high-and-low-income-consumers" class="section level3">
 <h3>How is the current consumer benefit divided between “high” and “low” income consumers?</h3>
 </div>
-<div id="high-income-consumers-attain-3001321.6-and-low-income-consumers-attain-570508.5-which-means-the-high-income-consumers" class="section level3">
-<h3>“high” income consumers attain 3001321.6 and “Low” income consumers attain 570508.5, which means the “high” income consumers</h3>
+<div id="high-income-consumers-attain-3001321.6-of-benefit-and-low-income-consumers-attain-570508.5-of-benefit" class="section level3">
+<h3>“high” income consumers attain <code>$</code>3001321.6 of benefit and “Low” income consumers attain <code>$</code>570508.5 of benefit</h3>
 </div>
 </div>
 <div id="derive-the-optimal-gas-tax-0.45" class="section level1">
@@ -642,21 +642,12 @@ plot_e &lt;- plot_2 + xlim(0,
 <div id="the-amount-of-gasoline-produced-and-consumed-will-move-from-600202-down-to-576917" class="section level3">
 <h3>The amount of gasoline produced and consumed will move from 600202 down to 576917</h3>
 </div>
-<div id="b-how-will-this-tax-affect-the-amount-of-gasoline-produced-and-consumed" class="section level3">
-<h3>b) How will this tax affect the amount of gasoline produced and consumed?</h3>
+<div id="b-how-will-this-tax-affect-the-price-of-gasoline" class="section level3">
+<h3>b) How will this tax affect the price of gasoline?</h3>
 </div>
 <div id="the-price-of-gas-for-consumers-is-3.45-inclusive-of-the-tax-meanwhile-suppliers-get-paid-3-per-gallon." class="section level3">
 <h3>The price of gas for consumers is $3.45 inclusive of the tax, meanwhile, suppliers get paid $3 per gallon.</h3>
 <pre class="r"><code># Social benefit:
-
-# scc &lt;- 51
-# t_variable &lt;- (scc/2204.62)*19.6
-# 
-# social_low_optimal = (a_low-(3+t_variable))*(demand((3+t_variable),model_demand_low))/2
-# social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_demand_high))/2
-# 
-# social_high = (a_high-3)*(demand(3,model_demand_high))/2
-# social_tot &lt;- social_low + social_high
 
 t_var &lt;- function(x){
   y &lt;- (x/2204.62)*19.6
@@ -676,13 +667,58 @@ wellfare_high &lt;- function(x){
   z &lt;- ((a_high-(3+y))*(demand((3+y),model_demand_high))/2)
   return(z)
 }
-wellfare_high(51)</code></pre>
+wellfare_high(51)
+
+# new producer Surplus
+producer_surplus &lt;-function(x){
+  y &lt;- (x/2204.62)*19.6
+  z &lt;- (s_slope*(demand_alt(3+y))*(demand_alt(3+y))/2)
+  return(z)
+}
+producer_surplus(51)
+
+# tax revenue ? environemntal damage
+tax_revenue &lt;-function(x){
+  y &lt;- (x/2204.62)*19.6
+  z &lt;- (demand_alt(3+y)*y)
+  return(z)
+}
+tax_revenue(51)
+
+net_high &lt;- social_high - wellfare_high(51)
+total_welfare_low &lt;- social_low - tax_revenue(51)
+net_low &lt;- total_welfare_low - wellfare_low(51)
+net_producer &lt;- producer - producer_surplus(51)</code></pre>
 </div>
 <div id="c-how-will-this-tax-affect-the-overall-welfare-of-high-income-consumers" class="section level3">
 <h3>c) How will this tax affect the overall welfare of “high” income consumers?</h3>
 </div>
-<div id="total-welfare-will-go-from-3001322-down-to-2792512" class="section level3">
-<h3>Total welfare will go from 3001322 down to 2792512</h3>
+<div id="welfare-for-high-income-consumers-will-go-from-3001322-down-to-2792512-or-a-loss-of-208809" class="section level3">
+<h3>Welfare for “high” income consumers will go from 3001322 down to 2792512 or a loss of 208809</h3>
+</div>
+<div id="d-how-will-this-tax-affect-the-overall-welfare-of-low-income-consumers" class="section level3">
+<h3>d) How will this tax affect the overall welfare of “low” income consumers?</h3>
+</div>
+<div id="before-the-tax-total-welfare-for-low-income-consumers-309008-was-the-total-benefit-570509-for-low-income-people---the-envirnmental-damage-burden-that-fell-on-them-261501.-considering-that-no-environemtnal-damage-occurs-after-the-tax-the-new-total-benefit-for-low-income-people-is-512498-or-a-gain-of-203491" class="section level3">
+<h3>Before the tax total welfare for “low” income consumers 309008 was the total benefit 570509 for “low” income people - the envirnmental damage burden that fell on them 261501. Considering that no environemtnal damage occurs after the tax, the new total benefit for low income people is 512498 or a gain of 203491</h3>
+</div>
+<div id="e-how-will-this-tax-affect-gas-producers" class="section level3">
+<h3>e) How will this tax affect gas producers?</h3>
+</div>
+<div id="supplier-surplus-for-producers-will-go-from-900302-down-to-831295-or-a-loss-of-69007" class="section level3">
+<h3>Supplier surplus for producers will go from 900302 down to 831295 or a loss of 69007</h3>
+</div>
+<div id="f-how-will-this-tax-affect-total-environmental-damage" class="section level3">
+<h3>f) How will this tax affect total environmental damage?</h3>
+</div>
+<div id="at-this-tax-rate-there-is-no-environmental-damage-accounted-for-with-a-social-cost-of-carbon-of-51" class="section level3">
+<h3>At this tax rate there is no environmental damage accounted for with a social cost of carbon of $51</h3>
+</div>
+<div id="g-how-will-this-tax-affect-total-tax-revenue-generated" class="section level3">
+<h3>g) How will this tax affect total tax revenue generated?</h3>
+</div>
+<div id="instead-of-0-in-tax-this-will-generate-261501" class="section level3">
+<h3>Instead of $0 in tax, this will generate 261501</h3>
 </div>
 </div>
 

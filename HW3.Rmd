@@ -222,25 +222,16 @@ plot_e <- plot_2 + xlim(0,
 
 # 3 Consumer Benefit
 ### How is the current consumer benefit divided between “high” and “low” income consumers?
-### "high" income consumers attain `r round(social_high,1)` and "Low" income consumers  attain `r round(social_low,1)`, which means the "high" income consumers
+### "high" income consumers attain `$``r round(social_high,1)` of benefit and "Low" income consumers  attain `$``r round(social_low,1)` of benefit
 
 # 4 Derive the optimal gas tax: `$``r round(t,2)` 
 ### a) How will this tax affect the amount of gasoline produced and consumed?
 ### The amount of gasoline produced and consumed will move from `r round(demand_alt(3), 0)` down to `r round (demand_alt(3.45), 0)` 
-### b) How will this tax affect the amount of gasoline produced and consumed?
+### b) How will this tax affect the price of gasoline?
 ### The price of gas for consumers is $3.45 inclusive of the tax, meanwhile, suppliers get paid $3 per gallon.
 
 ```{r}
 # Social benefit:
-
-# scc <- 51
-# t_variable <- (scc/2204.62)*19.6
-# 
-# social_low_optimal = (a_low-(3+t_variable))*(demand((3+t_variable),model_demand_low))/2
-# social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_demand_high))/2
-# 
-# social_high = (a_high-3)*(demand(3,model_demand_high))/2
-# social_tot <- social_low + social_high
 
 t_var <- function(x){
   y <- (x/2204.62)*19.6
@@ -262,11 +253,42 @@ wellfare_high <- function(x){
 }
 wellfare_high(51)
 
+# new producer Surplus
+producer_surplus <-function(x){
+  y <- (x/2204.62)*19.6
+  z <- (s_slope*(demand_alt(3+y))*(demand_alt(3+y))/2)
+  return(z)
+}
+producer_surplus(51)
+
+# tax revenue ? environemntal damage
+tax_revenue <-function(x){
+  y <- (x/2204.62)*19.6
+  z <- (demand_alt(3+y)*y)
+  return(z)
+}
+tax_revenue(51)
+
+net_high <- social_high - wellfare_high(51)
+total_welfare_low <- social_low - tax_revenue(51)
+net_low <- total_welfare_low - wellfare_low(51)
+net_producer <- producer - producer_surplus(51)
+
+
 ```
 
 ### c) How will this tax affect the overall welfare of “high” income consumers?
-### Welfare for "high" consumers will go from `r round(social_high,0)` down to `r round(wellfare_high(51),0)`
+### Welfare for "high" income consumers will go from `r round(social_high,0)` down to `r round(wellfare_high(51),0)` or a loss of `r round(net_high,0)`
 
+### d) How will this tax affect the overall welfare of “low” income consumers?
+### Before the tax total welfare for "low" income consumers `r round(total_welfare_low,0)` was the total benefit `r round(social_low,0)` for "low" income people - the envirnmental damage burden that fell on them `r round(tax_revenue(51),0)`. Considering that no environemtnal damage occurs after the tax, the new total benefit for low income people is `r round(wellfare_low(51),0)` or a gain of `r round(-net_low,0)`
 
+### e) How will this tax affect gas producers?
+### Supplier surplus for producers will go from `r round(producer,0)` down to `r round(producer_surplus(51),0)` or a loss of `r round(net_producer,0)`
 
+### f) How will this tax affect total environmental damage?
+### At this tax rate there is no environmental damage accounted for with a social cost of carbon of $51
+
+### g) How will this tax affect total tax revenue generated?
+### Instead of $0 in tax, this will generate `r round(tax_revenue(51),0)`
 
