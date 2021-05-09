@@ -30,7 +30,8 @@ packages=c("dplyr",
            "ggplot2",
            "stargazer",
            "cowplot",
-           "janitor") 
+           "janitor",
+           "kableExtra") 
 
 # Fancy way to load packages (if its installed, run it, otherwise install it):
 
@@ -308,7 +309,7 @@ At this tax rate there is no environmental damage accounted for with a social co
 ### g) How will this tax affect total tax revenue generated?
 Instead of $0 in tax, this will generate `r round(tax_revenue(51),0)`.
 
-```{r}
+```{r, results=TRUE}
 # Redistributed:
 
 pretax_perc_high <- demand(3,
@@ -334,7 +335,13 @@ redist_l <- function (x){
   return(w)
   }
 
-benefit_tible <- tibble(x = c(51, 75, 100, 125, 150),
+# Mutating a table via tibble:
+
+tibble_base <- tibble(x = c(51, 
+                              75, 
+                              100, 
+                              125, 
+                              150),
   y <- (x/2204.62)*19.6,
   q <- ((a_high-(3+y))*(demand((3+y),
                                model_demand_high))/2),
@@ -343,6 +350,29 @@ benefit_tible <- tibble(x = c(51, 75, 100, 125, 150),
   v <- q + demand_alt(3+y)*y*pretax_perc_high,
   w <- z+demand_alt(3+y)*y*(1/pretax_perc_high),
   p <- producer_surplus(x))
+
+benefit_table <- tibble_base %>% 
+  round(digits = 2) %>% 
+  rename('SCC' = 
+           'x', 
+         'Tax Rate' = 
+           'y <- (x/2204.62) * 19.6',
+         'Pre-Distribution High' = 
+           'q <- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)',
+         'Pre-Distribution Low' = 
+           'z <- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)',
+         'Post-Distribution High' = 
+           'v <- q + demand_alt(3 + y) * y * pretax_perc_high',
+         'Post-Distribution Low' = 
+           'w <- z + demand_alt(3 + y) * y * (1/pretax_perc_high)',
+         'Producer Surplus' = 
+           'p <- producer_surplus(x)')
+
+# Making an aesthetic tibble table to present:
+
+kbl(benefit_table) %>% 
+  kable_styling(full_width = FALSE, 
+                "hover")
 ```
 
 
