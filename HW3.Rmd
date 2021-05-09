@@ -227,6 +227,25 @@ plot_e <- plot_2 + xlim(0,
 ### The amount of gasoline produced and consumed will move from `r round(demand_alt(3), 0)` down to `r round (demand_alt(3.45), 0)` 
 ### b) How will this tax affect the amount of gasoline produced and consumed?
 ### The price of gas for consumers is $3.45 inclusive of the tax, meanwhile, suppliers get paid $3 per gallon.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+## Social benefit
+scc <- 51
+t_variable <- (scc/2204.62)*19.6
+
+social_low_optimal = (a_low-(3+t_variable))*(demand((3+t_variable),model_demand_low))/2
+social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_demand_high))/2
+
+social_high = (a_high-3)*(demand(3,model_demand_high))/2
+social_tot <- social_low + social_high
+
+demand_alt <- function(x){
+  y <- (x/2204.62)*19.6
+  return(y)
+}
+demand_alt(0)
+
+```
+
 ### c) How will this tax affect the overall welfare of “high” income consumers?
 ### Total welfare will go from `r round(social_high,0)` down to 
-
