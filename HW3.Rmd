@@ -159,6 +159,7 @@ t = (51/2204.62)*19.6
 social_low = (a_low-3)*(demand(3,model_demand_low))/2
 social_high = (a_high-3)*(demand(3,model_demand_high))/2
 social_tot <- social_low + social_high
+
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
@@ -195,7 +196,9 @@ plot_e <- plot_2 + xlim(0, 800000) +
 
 # 4 Derive the optimal gas tax: `$``r round(t,2)` 
 ### a) How will this tax affect the amount of gasoline produced and consumed?
-### The amount of gasoline produced and consumed will move from `r demand_alt(3)` down to `r demand_alt(3.45)` 
+### The amount of gasoline produced and consumed will move from `r round(demand_alt(3), 0)` down to `r round (demand_alt(3.45), 0)` 
 ### b) How will this tax affect the amount of gasoline produced and consumed?
-### 
+### The price of gas for consumers is $3.45 inclusive of the tax, meanwhile, suppliers get paid $3 per gallon.
+### c) How will this tax affect the overall welfare of “high” income consumers?
+### Total welfare will go from `r round(social_high,0)` down to 
 
