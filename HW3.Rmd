@@ -265,7 +265,7 @@ wellfare_high(51)
 ```
 
 ### c) How will this tax affect the overall welfare of “high” income consumers?
-### Total welfare will go from `r round(social_high,0)` down to 
+### Welfare for "high" consumers will go from `r round(social_high,0)` down to `r round(wellfare_high(51),0)`
 
 
 
