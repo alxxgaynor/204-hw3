@@ -340,52 +340,44 @@ redist_l <- function (x){
 # Mutating a table via tibble:
 
 benefit_table <- tibble(x = c(51,
-                            75,
-                            100,
-                            125,
-                            150),
-                      y <- (x/2204.62)*19.6,
-                      q <- ((a_high-(3+y))*(demand((3+y),
-                                                   model_demand_high))/2),
-                      z <- ((a_low-(3+y))*(demand((3+y),
-                                                  model_demand_low))/2),
-                      v <- q + demand_alt(3+y)*y*pretax_perc_high,
-                      w <- z+demand_alt(3+y)*y*(1/pretax_perc_high),
-                      p <- producer_surplus(x)) %>% 
-  round(digits = 2) %>% 
-  rename("SCC ($/MTCO2eq.)" = "x") %>% 
-  rename("Tax Rate ($)" = "y <- (x/2204.62) * 19.6") %>% 
-  rename("Pre Distribution High ($)" = "q <- ((a_high - (3 + y)) * (demand((3 + y), model_demand_high))/2)") %>% 
-  rename("Pre Distribution Low ($)" = "z <- ((a_low - (3 + y)) * (demand((3 + y), model_demand_low))/2)") %>% 
-  rename("Post Distribution High ($)" = "v <- q + demand_alt(3 + y) * y * pretax_perc_high") %>% 
-  rename("Post Distribution Low ($)" = "w <- z + demand_alt(3 + y) * y * (1/pretax_perc_high)") %>% 
-  rename("Producer Surplus ($)" = "p <- producer_surplus(x)")
+                              75,
+                              100,
+                              125,
+                              150),
+                        y <- (x/2204.62)*19.6,
+                        q <- ((a_high-(3+y))*(demand((3+y),
+                                                     model_demand_high))/2),
+                        z <- ((a_low-(3+y))*(demand((3+y),
+                                                    model_demand_low))/2),
+                        v <- q + demand_alt(3+y)*y*pretax_perc_high,
+                        w <- z+demand_alt(3+y)*y*(1/pretax_perc_high),
+                        p <- producer_surplus(x)) %>% 
+  round(digits = 2)
 
 # Making an aesthetic tibble table to present:
 
 kbl(benefit_table,
-  col.names = c("SCC - $/MTCO2eq.",
-                "Tax Rate - $",
-                "Pre Distribution High - $",
-                "Pre Distribution Low - $",
-                "Post Distribution High - $",
-                "Post Distribution Low - $",
-                "Producer Surplus - $"),
-  escape = FALSE,
-  booktabs = TRUE) %>% 
+    col.names = c("SCC $/MTCO2eq.",
+                  "Tax Rate $",
+                  "Pre Distribution High $",
+                  "Pre Distribution Low $",
+                  "Post Distribution High $",
+                  "Post Distribution Low $",
+                  "Producer Surplus $"),
+    escape = FALSE,
+    booktabs = TRUE) %>% 
   kable_styling(full_width = FALSE, 
                 "striped")
 ```
 
-
 ### a) Overall welfare of “high” income consumers:
-**insert**
+**As SCC increases from $51 to $150, a pre-distribution gas tax would have a negative impact on "high" income consumers, decreasing their consumer benefit from $2,792,512.00 to $2,408,666.00. And via post-distribution, "high" income consumers will only be negatively impacted slightly, decreasing their consumer benefit from $2,996,776.00 to $2,962,004.00.**
 
 ### b) Overall welfare of “low” income consumers:
-**insert**
+**As SCC increases from $51 to $150, a pre-distribution gas tax would have a significant negative impact on "low" income consumers, decreasing their consumer benefit from $512,498.30 to $408,766.90. And via post-distribution, "low" income consumers will greatly benefit, increasing their consumer benefit from $847,274.00 to $1,315,650.90.**
 
 ### c) Overall welfare of gas producers:
-**insert**
+**As SCC increases from $51 to $150, a gas tax would have a negative impact on gas producers. Producer surplus would decrease from $831,295.30 to $705,194.30.**
 
 # 6) New Demand From New Electric Car Technology
 
