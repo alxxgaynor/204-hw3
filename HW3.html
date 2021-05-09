@@ -461,10 +461,135 @@ summary {
 </div>
 
 
+<pre class="r"><code># Load data (useful if letters are in the data to not let R do funny stuff):
+
+gas_demand_data &lt;- read.csv(&quot;HW3_data.csv&quot;, 
+                            stringsAsFactors = F)
+
+gas_demand &lt;- gas_demand_data %&gt;% 
+  clean_names %&gt;% 
+  rename(&quot;price&quot; =&quot;price_dollars&quot;, 
+         &quot;q_low&quot; = &quot;q_low_gallons&quot;, 
+         &quot;q_high&quot; = &quot;q_high_gallons&quot;)</code></pre>
+<pre class="r"><code># Plot data:
+
+plot_1 &lt;- ggplot(data=gas_demand, 
+                 aes(y=price)) +
+  geom_point(aes(x=q_low)) +
+  geom_point(aes(x=q_high)) +
+  theme_cowplot(16)</code></pre>
+<pre class="r"><code># Estimate linear model (model has an implied intercept):
+
+model_demand_low &lt;- lm(price ~ q_low, 
+                       data=gas_demand)
+
+a_low &lt;- model_demand_low$coefficients[[1]]
+b_low &lt;- model_demand_low$coefficients[[2]]
+
+model_demand_high &lt;- lm(price ~ q_high, 
+                        data=gas_demand)
+
+a_high &lt;- model_demand_high$coefficients[[1]]
+b_high &lt;- model_demand_high$coefficients[[2]]</code></pre>
+<pre class="r"><code>price_fitted_low &lt;- a_low + b_low*gas_demand$q_low
+
+
+price_fitted_high &lt;- a_high + b_high*gas_demand$q_high
+
+plot_2 &lt;- plot_1 +
+  geom_line(aes(y=price_fitted_low, 
+                x=q_low)) +
+  geom_line(aes(y=price_fitted_high, 
+                x=q_high))
+
+# Low income demand function: `P = `r b_low`Q + `r a_low``
+# High income demand function: `P = `r b_high`Q + `r a_high``</code></pre>
+<pre class="r"><code># Inverse demand:
+
+inverse_demand &lt;- function(q, 
+                           model){
+  p &lt;- model$coefficients[[1]] + model$coefficients[[2]]*q
+  return(p)
+  }
+
+demand &lt;- function(p, 
+                   model){
+  q &lt;- (p - model$coefficients[[1]])/model$coefficients[[2]]
+  return(q)
+  }
+
+demand(0,
+       model_demand_low)
+inverse_demand(176746.5,
+               model_demand_low)
+inverse_demand(demand(0,
+                      model_demand_low),
+               model_demand_low)
+
+demand(3,
+       model_demand_high)
+inverse_demand(176746.5,
+               model_demand_low)
+inverse_demand(demand(0,
+                      model_demand_low),
+               model_demand_low)
+
+a_low_invert &lt;- demand(0,
+                       model_demand_low)
+a_high_invert &lt;- demand(0,
+                        model_demand_high)</code></pre>
+<pre class="r"><code># Determine the inverse slope:
+
+b_low_invert &lt;- 1/model_demand_low$coefficients[[2]]
+b_high_invert &lt;- 1/model_demand_high$coefficients[[2]]</code></pre>
+<pre class="r"><code># Determine the aggregate:
+
+a_tot_invert &lt;- a_low_invert + a_high_invert
+b_tot_invert &lt;- b_low_invert + b_high_invert
+
+a_tot &lt;- -a_tot_invert/b_tot_invert
+b_tot &lt;- 1/b_tot_invert
+
+demand_alt &lt;- function(p){
+  q &lt;- (p - a_tot)/b_tot
+  return(q)
+  }
+
+demand_alt(0)</code></pre>
+<pre class="r"><code># Determine the marginal cost curve:
+
+s_slope &lt;- 3/demand_alt(3)
+
+# $51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs/gallon gas.
+
+t = (51/2204.62)*19.6</code></pre>
 <div id="marginal-externality-cost-of-gasoline" class="section level1">
 <h1>1 Marginal Externality Cost of Gasoline</h1>
 <div id="the-marginal-externality-cost-per-gallon-of-gasoline-is-0.45-and-found-by-51-per-metric-ton2204.62-lbs-per-metric-ton-19.6-lbs-per-gallon-gas" class="section level3">
 <h3>The marginal externality cost per gallon of gasoline is <code>$</code>0.45 and found by <code>$51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas</code></h3>
+<pre class="r"><code># Social benefit:
+
+social_low = (a_low-3)*(demand(3,model_demand_low))/2
+social_high = (a_high-3)*(demand(3,model_demand_high))/2
+social_tot &lt;- social_low + social_high</code></pre>
+<pre class="r"><code># Producer benefit:
+
+producer &lt;- (3)*(demand_alt(3))/2
+
+# Cost for environment:
+
+env_cost &lt;- t*(demand_alt(3))</code></pre>
+<pre class="r"><code># Plotting the aggregate demand and supply:
+
+plot_e &lt;- plot_2 + xlim(0, 
+                        800000) +
+  ylim(0,16) +
+  geom_abline(intercept=a_tot, 
+              slope=b_tot, 
+              color = &quot;green&quot;) +
+  geom_abline(intercept=0, 
+              slope=s_slope, 
+              color = &quot;blue&quot;)</code></pre>
 </div>
 </div>
 <div id="curves" class="section level1">
@@ -522,12 +647,42 @@ summary {
 </div>
 <div id="the-price-of-gas-for-consumers-is-3.45-inclusive-of-the-tax-meanwhile-suppliers-get-paid-3-per-gallon." class="section level3">
 <h3>The price of gas for consumers is $3.45 inclusive of the tax, meanwhile, suppliers get paid $3 per gallon.</h3>
+<pre class="r"><code># Social benefit:
+
+# scc &lt;- 51
+# t_variable &lt;- (scc/2204.62)*19.6
+# 
+# social_low_optimal = (a_low-(3+t_variable))*(demand((3+t_variable),model_demand_low))/2
+# social_high_optimal = (a_high-(3+t_variable))*(demand((3+t_variable),model_demand_high))/2
+# 
+# social_high = (a_high-3)*(demand(3,model_demand_high))/2
+# social_tot &lt;- social_low + social_high
+
+t_var &lt;- function(x){
+  y &lt;- (x/2204.62)*19.6
+  return(y)
+}
+t_var(51)
+
+wellfare_low &lt;- function(x){
+  y &lt;- (x/2204.62)*19.6
+  z &lt;- ((a_low-(3+y))*(demand((3+y),model_demand_low))/2)
+  return(z)
+}
+wellfare_low(51)
+
+wellfare_high &lt;- function(x){
+  y &lt;- (x/2204.62)*19.6
+  z &lt;- ((a_high-(3+y))*(demand((3+y),model_demand_high))/2)
+  return(z)
+}
+wellfare_high(51)</code></pre>
 </div>
 <div id="c-how-will-this-tax-affect-the-overall-welfare-of-high-income-consumers" class="section level3">
 <h3>c) How will this tax affect the overall welfare of “high” income consumers?</h3>
 </div>
-<div id="total-welfare-will-go-from-3001322-down-to" class="section level3">
-<h3>Total welfare will go from 3001322 down to</h3>
+<div id="total-welfare-will-go-from-3001322-down-to-2792512" class="section level3">
+<h3>Total welfare will go from 3001322 down to 2792512</h3>
 </div>
 </div>
 
