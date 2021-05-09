@@ -749,7 +749,15 @@ redist_l &lt;- function (x){
   return(w)
   }
 
-redist_l(125)</code></pre>
+benefit_tible &lt;- tibble(x = c(51, 75, 100, 125, 150),
+  y &lt;- (x/2204.62)*19.6,
+  q &lt;- ((a_high-(3+y))*(demand((3+y),
+                               model_demand_high))/2),
+  z &lt;- ((a_low-(3+y))*(demand((3+y),
+                              model_demand_low))/2),
+  v &lt;- q + demand_alt(3+y)*y*pretax_perc_high,
+  w &lt;- z+demand_alt(3+y)*y*(1/pretax_perc_high),
+  p &lt;- producer_surplus(x))</code></pre>
 </div>
 </div>
 
