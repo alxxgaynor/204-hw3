@@ -66,7 +66,7 @@ plot_1 <- ggplot(data=gas_demand,
                  aes(y=price)) +
   geom_point(aes(x=q_low)) +
   geom_point(aes(x=q_high)) +
-  theme_cowplot(16); plot_1
+  theme_cowplot(16)
 ```
 
 ```{r}
@@ -247,7 +247,7 @@ welfare <- function(x){
   return(y)
   }
 
-demand_alt(0)
+welfare(51)
 ```
 
 ### c) How will this tax affect the overall welfare of “high” income consumers?
