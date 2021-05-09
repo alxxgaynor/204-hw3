@@ -379,6 +379,7 @@ kbl(benefit_table) %>%
 ### c) Overall welfare of gas producers:
 **insert**
 
+# 6) New Demand From New Electric Car Technology
 
 ```{r}
 # clean_benefit_tible <- benefit_tible %>%
@@ -436,7 +437,6 @@ inverse_demand_electric <- function(q,
 # inverse_demand_electric(3,)
 ```
 
-# 6) New Demand From New Electric Car Technology
 ### a) What is total gas consumption?
 **isnert**
 
@@ -445,4 +445,3 @@ inverse_demand_electric <- function(q,
 
 ### c) What value of the gasoline tax makes the total environmental damage the same as the electric car technology?
 **insert**
-
