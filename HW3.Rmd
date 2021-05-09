@@ -6,68 +6,76 @@ Updated: "5/8/2021"
 ---
 
 ```{r setup, include=FALSE}
-## Setup 
+# Setup:
 
 rm(list=ls())
-options(scipen=999) #give me normal numbers, not scientific ones
-gc() #cleans ram
+options(scipen=999) # Gives normal numbers, not scientific ones.
+gc() # Cleans ram.
 
-## Packages
+# Packages:
 
-packages=c("dplyr","tidyr", "stringr",  
-           "ggplot2", "stargazer", "cowplot", "janitor" ) 
+packages=c("dplyr",
+           "tidyr",
+           "stringr",  
+           "ggplot2",
+           "stargazer",
+           "cowplot",
+           "janitor") 
 
-#fancy way to load packages, if its installed, run it, otherwise install it.
-lapply(1:length(packages), function(x) 
-  ifelse((require(packages[x],character.only=TRUE)==FALSE),
-         install.packages(packages[x]),
-         require(packages[x],character.only=TRUE)))
+# Fancy way to load packages (if its installed, run it, otherwise install it):
+
+lapply(1:length(packages), 
+       function(x)
+         ifelse((require(packages[x],
+                         character.only=TRUE)==FALSE),
+                install.packages(packages[x]),
+                require(packages[x],
+                        character.only=TRUE)))
          
-## Set directory
+# Set directory (sets the directory where the script is saved to avoid complicated directory paths):
 
-# set the directory where the script is saved to avoid complicated directory paths
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) 
 getwd()
 ```
 
-
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Load data
-# useful if letters are in the data to not let R do funny stuff
-gas_demand_data <- read.csv("HW3_data.csv", stringsAsFactors = F)
+# Load data (useful if letters are in the data to not let R do funny stuff):
+
+gas_demand_data <- read.csv("HW3_data.csv", 
+                            stringsAsFactors = F)
 
 gas_demand <- gas_demand_data %>% 
   clean_names %>% 
-  rename("price" ="price_dollars", "q_low" = "q_low_gallons", "q_high" = "q_high_gallons")
+  rename("price" ="price_dollars", 
+         "q_low" = "q_low_gallons", 
+         "q_high" = "q_high_gallons")
 ```
 
-
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE}
-## Plot data
-plot_1 <- ggplot(data=gas_demand, aes(y=price))+
-  geom_point(aes(x=q_low))+
-  geom_point(aes(x=q_high))+
+# Plot data:
+
+plot_1 <- ggplot(data=gas_demand, 
+                 aes(y=price)) +
+  geom_point(aes(x=q_low)) +
+  geom_point(aes(x=q_high)) +
   theme_cowplot(16); plot_1
 ```
 
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Estimate linear model (model has an implied intercept)
+# Estimate linear model (model has an implied intercept):
 
-model_demand_low <- lm(price ~ q_low, data=gas_demand)
+model_demand_low <- lm(price ~ q_low, 
+                       data=gas_demand)
 
 a_low <- model_demand_low$coefficients[[1]]
 b_low <- model_demand_low$coefficients[[2]]
 
-model_demand_high <- lm(price ~ q_high, data=gas_demand)
+model_demand_high <- lm(price ~ q_high, 
+                        data=gas_demand)
 
 a_high <- model_demand_high$coefficients[[1]]
 b_high <- model_demand_high$coefficients[[2]]
 ```
-
-## Add estimated curve to our plot
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 price_fitted_low <- a_low + b_low*gas_demand$q_low
@@ -76,51 +84,61 @@ price_fitted_low <- a_low + b_low*gas_demand$q_low
 price_fitted_high <- a_high + b_high*gas_demand$q_high
 
 plot_2 <- plot_1 +
-  geom_line(aes(y=price_fitted_low, x=q_low)) +
-  geom_line(aes(y=price_fitted_high, x=q_high))
+  geom_line(aes(y=price_fitted_low, 
+                x=q_low)) +
+  geom_line(aes(y=price_fitted_high, 
+                x=q_high))
 
+# Low income demand function: `P = `r b_low`Q + `r a_low``
+# High income demand function: `P = `r b_high`Q + `r a_high``
 ```
 
-### Low income demand function: `P = `r b_low`Q + `r a_low``
-### High income demand function: `P = `r b_high`Q + `r a_high``
-
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE}
-## Inverse demand
+# Inverse demand:
 
-inverse_demand <- function(q, model){
+inverse_demand <- function(q, 
+                           model){
   p <- model$coefficients[[1]] + model$coefficients[[2]]*q
-return(p)
-}
+  return(p)
+  }
 
-demand <- function(p, model){
+demand <- function(p, 
+                   model){
   q <- (p - model$coefficients[[1]])/model$coefficients[[2]]
   return(q)
-}
+  }
 
+demand(0,
+       model_demand_low)
+inverse_demand(176746.5,
+               model_demand_low)
+inverse_demand(demand(0,
+                      model_demand_low),
+               model_demand_low)
 
-demand(0,model_demand_low)
-inverse_demand(176746.5,model_demand_low)
-inverse_demand(demand(0,model_demand_low),model_demand_low)
+demand(3,
+       model_demand_high)
+inverse_demand(176746.5,
+               model_demand_low)
+inverse_demand(demand(0,
+                      model_demand_low),
+               model_demand_low)
 
-demand(3,model_demand_high)
-inverse_demand(176746.5,model_demand_low)
-inverse_demand(demand(0,model_demand_low),model_demand_low)
-
-a_low_invert <- demand(0,model_demand_low)
-a_high_invert <- demand(0,model_demand_high)
+a_low_invert <- demand(0,
+                       model_demand_low)
+a_high_invert <- demand(0,
+                        model_demand_high)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Determine the inverse slope
+# Determine the inverse slope:
 
 b_low_invert <- 1/model_demand_low$coefficients[[2]]
 b_high_invert <- 1/model_demand_high$coefficients[[2]]
-
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE}
-## Determine aggregate
+# Determine the aggregate:
 
 a_tot_invert <- a_low_invert + a_high_invert
 b_tot_invert <- b_low_invert + b_high_invert
@@ -131,50 +149,54 @@ b_tot <- 1/b_tot_invert
 demand_alt <- function(p){
   q <- (p - a_tot)/b_tot
   return(q)
-}
+  }
+
 demand_alt(0)
 ```
 
-
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Determine marginal cost curve
+# Determine the marginal cost curve:
 
 s_slope <- 3/demand_alt(3)
 
-```
+# $51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs/gallon gas.
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Determine marginal cost curve
-## $51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs/gallon gas
 t = (51/2204.62)*19.6
-
 ```
 # 1 Marginal Externality Cost of Gasoline
 
 ### The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by `$51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas`
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Social benefit
+# Social benefit:
+
 social_low = (a_low-3)*(demand(3,model_demand_low))/2
 social_high = (a_high-3)*(demand(3,model_demand_high))/2
 social_tot <- social_low + social_high
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Producer benefit
+# Producer benefit:
+
 producer <- (3)*(demand_alt(3))/2
 
-## Cost for environment
+# Cost for environment:
+
 env_cost <- t*(demand_alt(3))
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Plot in agg demand and supply
-plot_e <- plot_2 + xlim(0, 800000) +
+## Plotting the aggregate demand and supply:
+
+plot_e <- plot_2 + xlim(0, 
+                        800000) +
   ylim(0,16) +
-  geom_abline(intercept=a_tot, slope=b_tot, color = "green") +
-  geom_abline(intercept=0, slope=s_slope, color = "blue")
+  geom_abline(intercept=a_tot, 
+              slope=b_tot, 
+              color = "green") +
+  geom_abline(intercept=0, 
+              slope=s_slope, 
+              color = "blue")
 ```
 
 # 2 Curves
