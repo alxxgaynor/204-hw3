@@ -377,8 +377,8 @@ kbl(benefit_table) %>%
 
 
 ```{r}
-clean_benefit_tible <- benefit_tible %>%
-  rename( y = "y <- (x/2204.62)*19.6")
+# clean_benefit_tible <- benefit_tible %>%
+#   rename( y = "y <- (x/2204.62)*19.6")
   #         q = q <- ((a_high-(3+y))*(demand((3+y),
   #                              model_demand_high))/2),
   #         z = z <- ((a_low-(3+y))*(demand((3+y),
@@ -387,10 +387,10 @@ clean_benefit_tible <- benefit_tible %>%
   #         w = w <- z+demand_alt(3+y)*y*(1/pretax_perc_high),
   #         v = p <- producer_surplus(x))
 
-ggplot(benefit_tible, aes() +
-  geom_histogram() +
-  facet_wrap(~ common_name) +
-  xlab("Common Name") +
-  ylab("Size") +
-  theme(legend.position = "none")
+# ggplot(benefit_tible, aes() +
+#   geom_histogram() +
+#   facet_wrap(~ common_name) +
+#   xlab("Common Name") +
+#   ylab("Size") +
+#   theme(legend.position = "none")
 ```
