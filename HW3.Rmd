@@ -166,6 +166,7 @@ s_slope <- 3/demand_alt(3)
 
 t = (51/2204.62)*19.6
 ```
+
 # 1 Marginal Externality Cost of Gasoline
 
 ### The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by `$51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas`
@@ -176,7 +177,6 @@ t = (51/2204.62)*19.6
 social_low = (a_low-3)*(demand(3,model_demand_low))/2
 social_high = (a_high-3)*(demand(3,model_demand_high))/2
 social_tot <- social_low + social_high
-
 ```
 
 ```{r, include = FALSE}
@@ -229,7 +229,8 @@ plot_e <- plot_2 + xlim(0,
 ### The price of gas for consumers is $3.45 inclusive of the tax, meanwhile, suppliers get paid $3 per gallon.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
-## Social benefit
+# Social benefit:
+
 scc <- 51
 t_variable <- (scc/2204.62)*19.6
 
@@ -242,10 +243,14 @@ social_tot <- social_low + social_high
 demand_alt <- function(x){
   y <- (x/2204.62)*19.6
   return(y)
-}
-demand_alt(0)
+  }
 
+demand_alt(0)
 ```
 
 ### c) How will this tax affect the overall welfare of “high” income consumers?
-### Total welfare will go from `r round(social_high,0)` down to 
+### Total welfare will go from `r round(social_high,0)` down to
+
+
+
+
