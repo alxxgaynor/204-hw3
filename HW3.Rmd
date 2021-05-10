@@ -2,10 +2,7 @@
 title: "Distributional Consequences of Climate Policy"
 subtitle: "ESM 204 - Assignment 3"
 author: "Alex Gaynor & Carlos Simms"
-output:
-  html_document:
-    code_folding: hide
-    theme: journal
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -49,6 +46,88 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 getwd()
 ```
+
+# 1) Marginal Externality Cost of Gasoline
+
+**The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by $51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas.**
+
+# 2) Curves
+
+```{r, echo=FALSE, results=TRUE}
+plot_e
+```
+
+### What is the aggregate daily demand curve for gasoline?
+**From $0 to `r round(a_low,2)`: P = `r round(b_tot,7)`Q + `r round(a_tot,2)`, from `r round(a_low,2)` to infity:  P = `r round(b_high,7)`Q + `r round(a_high,2)`** 
+
+### What is the supply curve for gasoline?
+**P = `r round(s_slope,8)`Q + 0**
+
+### What is the “benefit” to consumers under the status quo?
+**`r round(social_tot,1)`**
+
+### What is the “benefit” to producers under the status quo?
+**`r round(producer,1)`**
+
+### What is the environmental cost under the status quo?
+**`r round(env_cost,1)`**
+
+# 3) Consumer Benefit
+
+### How is the current consumer benefit divided between “high” and “low” income consumers?
+**"High" income consumers attain `$``r round(social_high,0)` of benefit and "low" income consumers  attain `$``r round(social_low,0)` of benefit for a total of `$``r round(social_tot,0)`. "High" income consumers receive `r round(high_percentage,0)` percent of the total benefit.**
+
+# 4) Derive the Optimal Gas Tax: `$``r round(t,2)` 
+
+### a) How will this tax affect the amount of gasoline produced and consumed?
+**The amount of gasoline produced and consumed will move from `r round(demand_alt(3), 0)`, down to `r round (demand_alt(3.45), 0)`.**
+
+### b) How will this tax affect the price of gasoline?
+**The price of gas for consumers is $3.45 inclusive of the tax.**
+**Meanwhile, suppliers get paid $3 per gallon.**
+
+### c) How will this tax affect the overall welfare of “high” income consumers?
+**Welfare for "high" income consumers will go from `r round(social_high,0)` down to `r round(wellfare_high(51),0)`, or a loss of `r round(net_high,0)`.**
+
+### d) How will this tax affect the overall welfare of “low” income consumers?
+**Before the tax, total welfare for "low" income consumers `r round(total_welfare_low,0)` was the total benefit `r round(social_low,0)` for "low" income people - the environmental damage burden that fell on them `r round(tax_revenue(51),0)`. Considering that no environemtnal damage occurs after the tax, the new total benefit for "low" income people is `r round(wellfare_low(51),0)`, or a gain of `r round(-net_low,0)`.**
+
+### e) How will this tax affect gas producers?
+**Supplier surplus for producers will go from `r round(producer,0)` down to `r round(producer_surplus(51),0)`, or a loss of `r round(net_producer,0)`.**
+
+### f) How will this tax affect total environmental damage?
+**At this tax rate there is no environmental damage accounted for with a social cost of carbon of $51.**
+
+### g) How will this tax affect total tax revenue generated?
+**Instead of $0 in tax, this will generate `r round(tax_revenue(51),0)`.**
+
+# 5) Redistributing Gas Tax Revenue to Consumers
+
+```{r, echo=FALSE, results=TRUE}
+table_scc
+```
+
+### a) Overall welfare of “high” income consumers:
+**As SCC increases from $51 to $150, a pre-distribution gas tax would have a negative impact on "high" income consumers, decreasing their consumer benefit from $2,792,512.00 to $2,408,666.00. And via post-distribution, "high" income consumers will only be negatively impacted slightly, decreasing their consumer benefit from $2,996,776.00 to $2,962,004.00.**
+
+### b) Overall welfare of “low” income consumers:
+**As SCC increases from $51 to $150, a pre-distribution gas tax would have a significant negative impact on "low" income consumers, decreasing their consumer benefit from $512,498.30 to $408,766.90. And via post-distribution, "low" income consumers will greatly benefit, increasing their consumer benefit from $847,274.00 to $1,315,650.90.**
+
+### c) Overall welfare of gas producers:
+**As SCC increases from $51 to $150, a gas tax would have a negative impact on gas producers. Producer surplus would decrease from $831,295.30 to $705,194.30.**
+
+# 6) New Demand From New Electric Car Technology
+
+### a) What is total gas consumption?
+**`r round(e_gas_tot,0)`**
+
+### b) What is the total environmental externality?
+**At a SCC of $51, the tax rate is $0.45, multiplied by the total gas consumption = `r round(e_tax_revenue,0)`.**
+
+### c) What value of the gasoline tax makes the total environmental damage the same as the electric car technology?
+**"the same as the electric car technology" ?must? mean (environmental value per gallon saved: $0.45 if the SCC is $51)x(gallons saved by some rich people switching to electric) = `r round(e_car_env_value,0)`. In order to generate the same amount via a tax on the remaining gallons of gas consumed, you would divide the amount by the miles still driven and get `r round(equal_gas_tax,2)`.**
+
+# Supplemental Material - R Code
 
 ```{r}
 # Load data (useful if letters are in the data to not let R do funny stuff):
@@ -170,13 +249,7 @@ s_slope <- 3/demand_alt(3)
 # $51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs/gallon gas.
 
 t = (51/2204.62)*19.6
-```
 
-# 1) Marginal Externality Cost of Gasoline
-
-**The marginal externality cost per gallon of gasoline is `$``r round(t, 2)` and found by $51 per metric ton/2204.62 lbs per metric ton * 19.6 lbs per gallon gas.**
-
-```{r}
 # Social benefit:
 
 social_low = (a_low-3)*(demand(3,model_demand_low))/2
@@ -206,40 +279,7 @@ plot_e <- plot_2 + xlim(0,
   geom_abline(intercept=0, 
               slope=s_slope, 
               color = "blue")
-```
 
-# 2) Curves
-
-### What is the aggregate daily demand curve for gasoline?
-**From $0 to `r round(a_low,2)`: P = `r round(b_tot,7)`Q + `r round(a_tot,2)`, from `r round(a_low,2)` to infity:  P = `r round(b_high,7)`Q + `r round(a_high,2)`** 
-
-### What is the supply curve for gasoline?
-**P = `r round(s_slope,8)`Q + 0**
-
-### What is the “benefit” to consumers under the status quo?
-**`r round(social_tot,1)`**
-
-### What is the “benefit” to producers under the status quo?
-**`r round(producer,1)`**
-
-### What is the environmental cost under the status quo?
-**`r round(env_cost,1)`**
-
-# 3) Consumer Benefit
-
-### How is the current consumer benefit divided between “high” and “low” income consumers?
-**"High" income consumers attain `$``r round(social_high,0)` of benefit and "low" income consumers  attain `$``r round(social_low,0)` of benefit for a total of `$``r round(social_tot,0)`. "High" income consumers receive `r round(high_percentage,0)` percent of the total benefit.**
-
-# 4) Derive the Optimal Gas Tax: `$``r round(t,2)` 
-
-### a) How will this tax affect the amount of gasoline produced and consumed?
-**The amount of gasoline produced and consumed will move from `r round(demand_alt(3), 0)`, down to `r round (demand_alt(3.45), 0)`.**
-
-### b) How will this tax affect the price of gasoline?
-**The price of gas for consumers is $3.45 inclusive of the tax.**
-**Meanwhile, suppliers get paid $3 per gallon.**
-
-```{r}
 # Social benefit:
 
 t_var <- function(x){
@@ -292,26 +332,7 @@ total_welfare_low <- social_low - tax_revenue(51)
 net_low <- total_welfare_low - wellfare_low(51)
 
 net_producer <- producer - producer_surplus(51)
-```
 
-### c) How will this tax affect the overall welfare of “high” income consumers?
-**Welfare for "high" income consumers will go from `r round(social_high,0)` down to `r round(wellfare_high(51),0)`, or a loss of `r round(net_high,0)`.**
-
-### d) How will this tax affect the overall welfare of “low” income consumers?
-**Before the tax, total welfare for "low" income consumers `r round(total_welfare_low,0)` was the total benefit `r round(social_low,0)` for "low" income people - the environmental damage burden that fell on them `r round(tax_revenue(51),0)`. Considering that no environemtnal damage occurs after the tax, the new total benefit for "low" income people is `r round(wellfare_low(51),0)`, or a gain of `r round(-net_low,0)`.**
-
-### e) How will this tax affect gas producers?
-**Supplier surplus for producers will go from `r round(producer,0)` down to `r round(producer_surplus(51),0)`, or a loss of `r round(net_producer,0)`.**
-
-### f) How will this tax affect total environmental damage?
-**At this tax rate there is no environmental damage accounted for with a social cost of carbon of $51.**
-
-### g) How will this tax affect total tax revenue generated?
-**Instead of $0 in tax, this will generate `r round(tax_revenue(51),0)`.**
-
-# 5) Redistributing Gas Tax Revenue to Consumers
-
-```{r, results = TRUE}
 # Redistributed:
 
 pretax_perc_high <- demand(3,
@@ -355,32 +376,18 @@ benefit_table <- tibble(x = c(0,
 
 # Making an aesthetic tibble table to present:
 
-kbl(benefit_table,
-    col.names = c("SCC $/MTCO2eq.",
-                  "Tax Rate $",
-                  "Pre Distribution High $",
-                  "Pre Distribution Low $",
-                  "Post Distribution High $",
-                  "Post Distribution Low $",
-                  "Producer Surplus $"),
-    escape = FALSE,
-    booktabs = TRUE) %>% 
-  kable_styling(full_width = FALSE, 
+table_scc <- kbl(benefit_table,
+                 col.names = c("SCC $/MTCO2eq.",
+                               "Tax Rate $",
+                               "Pre Distribution High $",
+                               "Pre Distribution Low $",
+                               "Post Distribution High $",
+                               "Post Distribution Low $",
+                               "Producer Surplus $"),
+                 escape = FALSE,
+                 booktabs = TRUE) %>%
+  kable_styling(full_width = FALSE,
                 "striped")
-```
-
-### a) Overall welfare of “high” income consumers:
-**As SCC increases from $51 to $150, a pre-distribution gas tax would have a negative impact on "high" income consumers, decreasing their consumer benefit from $2,792,512.00 to $2,408,666.00. And via post-distribution, "high" income consumers will only be negatively impacted slightly, decreasing their consumer benefit from $2,996,776.00 to $2,962,004.00.**
-
-### b) Overall welfare of “low” income consumers:
-**As SCC increases from $51 to $150, a pre-distribution gas tax would have a significant negative impact on "low" income consumers, decreasing their consumer benefit from $512,498.30 to $408,766.90. And via post-distribution, "low" income consumers will greatly benefit, increasing their consumer benefit from $847,274.00 to $1,315,650.90.**
-
-### c) Overall welfare of gas producers:
-**As SCC increases from $51 to $150, a gas tax would have a negative impact on gas producers. Producer surplus would decrease from $831,295.30 to $705,194.30.**
-
-# 6) New Demand From New Electric Car Technology
-
-```{r}
 
 model_demand_low <- lm(price ~ q_low, 
                        data=gas_demand)
@@ -400,7 +407,6 @@ price_fitted_low <- a_low + b_low*gas_demand$q_low
 
 price_fitted_high <- a_high + b_high*gas_demand$q_high
 
-
 # Low income demand function: `P = `r b_low`Q + `r a_low``
 
 # High income demand function: `P = `r b_high`Q + `r a_high``
@@ -411,42 +417,43 @@ inverse_demand_electric <- function(q,
                                     model){
   p <- model$coefficients[[1]]/2 + model$coefficients[[2]]*q
   return(p)
-}
+  }
+
 demand_electric <- function(p,
-                                    model){
+                            model){
   q <- (p - ((model$coefficients[[1]])/2))/model$coefficients[[2]]
   return(q)
-}
+  }
 
 # inverse_demand_electric(3,model_demand_high)
-demand_electric(3,model_demand_high)
-# demand(3,model_demand_low)
 
+demand_electric(3,
+                model_demand_high)
+
+# demand(3,model_demand_low)
 
 # Social benefit - electric:
 
-social_low = (a_low-3)*(demand(3,model_demand_low))/2
+social_low = (a_low-3)*(demand(3,
+                               model_demand_low))/2
 
-social_high_e = ((a_high/2)-3)*(demand_electric(3,model_demand_high))/2
+social_high_e = ((a_high/2)-3)*(demand_electric(3,
+                                                model_demand_high))/2
 
-e_gas_tot <- demand_electric(3,model_demand_high) +
-  demand(3,model_demand_low)
+e_gas_tot <- demand_electric(3,
+                             model_demand_high) +
+  demand(3,
+         model_demand_low)
 
 e_tax_revenue <- t*e_gas_tot
 
 e_car_gal_reduction <- demand_alt(3) - e_gas_tot
 
 #  difference between status quo gallons and the new normal after electric cars entering the scene:
+
 e_car_env_value <- t*e_car_gal_reduction
 
 equal_gas_tax <- e_car_env_value/(e_gas_tot)
 ```
 
-### a) What is total gas consumption?
-**`r round(e_gas_tot,0)`**
-
-### b) What is the total environmental externality?
-**At a SCC of $51, the tax rate is $0.45, multiplied by the total gas consumption = `r round(e_tax_revenue,0)`**
-
-### c) What value of the gasoline tax makes the total environmental damage the same as the electric car technology?
-**"the same as the electric car technology" ?must? mean (environmental value per gallon saved: $0.45 if the SCC is $51)x(gallons saved by some rich people switching to electric) = `r round(e_car_env_value,0)`. In order to generate the same amount via a tax on the remaining gallons of gas consumed, you would divide the amount by the miles still driven and get `r round(equal_gas_tax,2)`**
+END
