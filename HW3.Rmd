@@ -6,7 +6,7 @@ output: html_document
 --- 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
+knitr::opts_chunk$set(echo = FALSE, 
                       warning = FALSE, 
                       message = FALSE,
                       results = FALSE)
@@ -47,7 +47,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 getwd()
 ```
 
-```{r, include=FALSE}
+```{r}
 # Load data (useful if letters are in the data to not let R do funny stuff):
 
 gas_demand_data <- read.csv("HW3_data.csv", 
@@ -392,7 +392,7 @@ equal_gas_tax <- e_tax_revenue/(e_gas_tot)
 
 # 2) Curves
 
-```{r, echo=FALSE, results=TRUE}
+```{r, results=TRUE}
 plot_e
 ```
 
@@ -442,7 +442,7 @@ plot_e
 
 # 5) Redistributing Gas Tax Revenue to Consumers
 
-```{r, echo=FALSE, results=TRUE}
+```{r, results=TRUE}
 table_scc
 ```
 
@@ -465,10 +465,3 @@ table_scc
 
 ### c) What value of the gasoline tax makes the total environmental damage the same as the electric car technology?
 **"the same as the electric car technology" was taken to mean (environmental value per gallon saved: $0.45 if the SCC is $51)x(gallons used after some "high" income people switch to electric) = `r round(e_tax_revenue,0)`. In order to generate the same amount via a tax on the remaining gallons of gas consumed, you would divide the amount by the miles still driven and get `r round(equal_gas_tax,2)`.**
-
-
-# Supplemental Material - R Code
-
-
-
-END
