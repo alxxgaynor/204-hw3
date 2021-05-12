@@ -2,10 +2,8 @@
 title: "Distributional Consequences of Climate Policy"
 subtitle: "ESM 204 - Assignment 3"
 author: "Alex Gaynor & Carlos Simms"
-output:
-  # pdf_document:
-   # theme: journal
----
+output: html_document
+--- 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
@@ -449,13 +447,13 @@ table_scc
 ```
 
 ### a) Overall welfare of “high” income consumers:
-**As SCC increases from $51 to $150, a pre-distribution gas tax would have a negative impact on "high" income consumers, decreasing their consumer benefit from $2,792,512.00 to $2,408,666.00. And via post-distribution, "high" income consumers will only be negatively impacted slightly, decreasing their consumer benefit from $2,996,776.00 to $2,962,004.00.**
+**As SCC increases from $51 to $150, a pre-distribution gas tax would have a negative impact on "high" income consumers, decreasing their consumer benefit from $2792512 to $2408666. And via post-distribution, "high" income consumers will only be negatively impacted slightly, decreasing their consumer benefit from $2996776 to $2962004.**
 
 ### b) Overall welfare of “low” income consumers:
-**As SCC increases from $51 to $150, a pre-distribution gas tax would have a significant negative impact on "low" income consumers, decreasing their consumer benefit from $512,498.30 to $408,766.90. And via post-distribution, "low" income consumers will greatly benefit, increasing their consumer benefit from $847,274.00 to $1,315,650.90.**
+**As SCC increases from $51 to $150, a pre-distribution gas tax would have a significant negative impact on "low" income consumers, decreasing their consumer benefit from $250997 to -$299620. And post-redistribution, "low" income consumers will greatly benefit, increasing their consumer benefit from $585773 to $607263.**
 
 ### c) Overall welfare of gas producers:
-**As SCC increases from $51 to $150, a gas tax would have a negative impact on gas producers. Producer surplus would decrease from $831,295.30 to $705,194.30.**
+**As SCC increases from $51 to $150, a gas tax would have a negative impact on gas producers. Producer surplus would decrease from $831295 to $705194.**
 
 # 6) New Demand From New Electric Car Technology
 
@@ -466,9 +464,8 @@ table_scc
 **At a SCC of $51, the tax rate is $0.45, multiplied by the total gas consumption = `r round(e_tax_revenue,0)`.**
 
 ### c) What value of the gasoline tax makes the total environmental damage the same as the electric car technology?
-**"the same as the electric car technology" ?must? mean (environmental value per gallon saved: $0.45 if the SCC is $51)x(gallons used after some rich people switch to electric) = `r round(e_tax_revenue,0)`. In order to generate the same amount via a tax on the remaining gallons of gas consumed, you would divide the amount by the miles still driven and get `r round(equal_gas_tax,2)`.**
+**"the same as the electric car technology" was taken to mean (environmental value per gallon saved: $0.45 if the SCC is $51)x(gallons used after some "high" income people switch to electric) = `r round(e_tax_revenue,0)`. In order to generate the same amount via a tax on the remaining gallons of gas consumed, you would divide the amount by the miles still driven and get `r round(equal_gas_tax,2)`.**
 
-**"the same as the electric car technology" ?must? mean (environmental value per gallon saved: $0.45 if the SCC is $51)x(gallons saved by some rich people switching to electric) = `r round(e_car_env_value,0)`. In order to generate the same amount via a tax on the remaining gallons of gas consumed, you would divide the amount by the miles still driven and get `r round(equal_gas_tax,2)`.**
 
 # Supplemental Material - R Code
 
