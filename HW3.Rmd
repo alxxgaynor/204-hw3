@@ -1,8 +1,11 @@
 ---
 title: "Distributional Consequences of Climate Policy"
-subtitle: "ESM 204 - Assignment 3"
 author: "Alex Gaynor & Carlos Simms"
-output: html_document
+subtitle: ESM 204 - Assignment 3
+output:
+  # pdf_document: default
+  # '# pdf_document': default
+  html_document: default
 --- 
 
 ```{r setup, include=FALSE}
